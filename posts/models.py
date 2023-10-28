@@ -42,5 +42,7 @@ class Post(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.id} {self.title} {self.model} {self.year} {self.bhp}
-        {self.location} {self.is_modified} {self.colour}'
+        return (
+            f'{self.id} {self.title} {self.model} {self.year} {self.bhp} '
+            f'{self.location} {self.is_modified} {self.colour} '
+        )
