@@ -97,3 +97,15 @@ In `settings.py` file:
 `DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'`<br>
 
 - 4.3 Remove the insecure secret key and replace. ( `os.environ.get('SECRET_KEY')` )
+
+#### 5. Installing Django Rest Framework
+
+In the terminal:
+
+- 5.1 Install django rest framework ( `pip install djangorestframework` )
+
+- 5.2 Add the rest framework to `INSTALLED APPS = [`
+
+  `'django.contrib.staticfiles',`<br>
+    `'cloudinary',`<br>
+    `'rest_framework',`<br>
