@@ -14,11 +14,27 @@ import styles from "../styles/NavBar.module.css";
 // React router
 import { NavLink } from "react-router-dom";
 
-import { useCurrentUser } from "../contexts/CurrentUserContext";
+import {
+    useCurrentUser,
+    useSetCurrentUser,
+} from "../contexts/CurrentUserContext";
 import Avatar from "./Avatar";
+
+// Axios
+import axios from "axios";
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
+    const setCurrentUser = useSetCurrentUser();
+
+    const handleSignOut = async () => {
+        try {
+            await axios.post("dj-rest-auth/logout/");
+            setCurrentUser(null);
+        } catch (err) {
+            console.log(err);
+        }
+    };
     const addPostIcon = (
         <NavLink
             className={styles.NavLink}
@@ -44,7 +60,7 @@ const NavBar = () => {
             >
                 <i className="fa-solid fa-heart"></i>Liked
             </NavLink>
-            <NavLink className={styles.NavLink} to="/" onClick={() => {}}>
+            <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
                 <i class="fa-solid fa-right-from-bracket"></i>Sign out
             </NavLink>
             <NavLink
