@@ -7,3 +7,11 @@
     font-family: 'Racing Sans One', sans-serif;
     font-size: 2.2rem;
 }
+
+.NavLink {
+    padding: 5px;
+}
+
+.Active i {
+    color: #181c27;
+}
