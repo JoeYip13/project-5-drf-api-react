@@ -18,7 +18,41 @@ import { useCurrentUser } from "../contexts/CurrentUserContext";
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
-    const loggedInIcons = <>{currentUser?.username}</>;
+    const addPostIcon = (
+        <NavLink
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+            to="/posts/create"
+        >
+            <i class="fa-solid fa-circle-plus"></i>Add post
+        </NavLink>
+    );
+    const loggedInIcons = (
+        <>
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/feed"
+            >
+                <i className="fa-solid fa-stream"></i>Feed
+            </NavLink>
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/liked"
+            >
+                <i className="fa-solid fa-heart"></i>Liked
+            </NavLink>
+            <NavLink className={styles.NavLink} to="/" onClick={() => {}}>
+                <i class="fa-solid fa-right-from-bracket"></i>Sign out
+            </NavLink>
+            <NavLink
+                className={styles.NavLink}
+                to={`/profiles/${currentUser?.profile_id}`}
+            ></NavLink>
+            Profile Avatar
+        </>
+    );
     const loggedOutIcons = (
         <>
             <NavLink
@@ -48,6 +82,7 @@ const NavBar = () => {
                         Ultimate <img src={logo} alt="logo" height="45" /> Car
                     </Navbar.Brand>
                 </NavLink>
+                {currentUser && addPostIcon}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
