@@ -11,6 +11,10 @@ h5 {
     margin: 0 0;
 }
 
+.Heart {
+    color: #f85032;
+}
+
 .Heart:hover {
     color: #013d79;
 }
