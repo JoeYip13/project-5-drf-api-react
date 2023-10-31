@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 // Bootstrap components
 import Form from "react-bootstrap/Form";
@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
 
 import Upload from "../assets/upload_96x96.png";
 
@@ -13,10 +14,14 @@ import styles from "../styles/PostCreateEditForm.module.css";
 import appStyles from "../App.module.css";
 import btnStyles from "../styles/Button.module.css";
 import Asset from "../components/Asset";
+import { Image } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { axiosReq } from "../api/axiosDefaults";
 
 function PostCreateForm() {
     const [errors, setErrors] = useState({});
 
+    const [isChecked, setIsChecked] = useState(false);
     const [postData, setPostData] = useState({
         title: "",
         content: "",
@@ -25,9 +30,10 @@ function PostCreateForm() {
         year: "",
         bhp: "",
         location: "",
-        is_modifled: false,
+        is_modified: isChecked,
         colour: "",
     });
+
     const {
         title,
         content,
@@ -40,6 +46,54 @@ function PostCreateForm() {
         colour,
     } = postData;
 
+    const imageInput = useRef(null);
+    const history = useHistory();
+
+    const handleChange = (event) => {
+        setPostData({
+            ...postData,
+            [event.target.name]: event.target.value,
+            [event.target.name === is_modified]: (event.target.value =
+                setIsChecked(!isChecked)),
+        });
+    };
+
+    const handleChangeImage = (event) => {
+        if (event.target.files.length) {
+            URL.revokeObjectURL(image);
+            setPostData({
+                ...postData,
+                image: URL.createObjectURL(event.target.files[0]),
+            });
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("image", imageInput.current.files[0]);
+        formData.append("model", model);
+        formData.append("year", year);
+        formData.append("bhp", bhp);
+        formData.append("location", location);
+        formData.append("is_modified", is_modified);
+        formData.append("colour", colour);
+        console.log(Object.fromEntries(formData.entries()));
+
+        try {
+            const { data } = await axiosReq.post("/posts/", formData);
+            history.push(`/posts/${data.id}`);
+        } catch (error) {
+            console.log(error);
+            if (error.response?.status !== 401) {
+                setErrors(error.response?.data);
+            }
+        }
+    };
+
     const textFields = (
         <div className="text-center">
             <Form.Group>
@@ -48,9 +102,14 @@ function PostCreateForm() {
                     type="text"
                     name="title"
                     value={title}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.title?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Content</Form.Label>
                 <Form.Control
@@ -58,7 +117,7 @@ function PostCreateForm() {
                     rows={6}
                     name="content"
                     value={content}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -67,7 +126,7 @@ function PostCreateForm() {
                     type="text"
                     name="model"
                     value={model}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -76,7 +135,7 @@ function PostCreateForm() {
                     type="text"
                     name="year"
                     value={year}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -85,7 +144,7 @@ function PostCreateForm() {
                     type="text"
                     name="bhp"
                     value={bhp}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -94,7 +153,7 @@ function PostCreateForm() {
                     type="text"
                     name="location"
                     value={location}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -103,13 +162,8 @@ function PostCreateForm() {
                     type="checkbox"
                     label="Yes"
                     name="is_modified"
-                    value={is_modified}
-                />
-                <Form.Check
-                    type="checkbox"
-                    label="No"
-                    name="is_modified"
-                    value={is_modified}
+                    value={!isChecked}
+                    onChange={handleChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -118,42 +172,70 @@ function PostCreateForm() {
                     type="text"
                     name="colour"
                     value={colour}
-                    onChange={() => {}}
+                    onChange={handleChange}
                 />
             </Form.Group>
 
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Bright}`}
-                onClick={() => {}}
+                onClick={() => history.goBack()}
             >
-                cancel
+                Cancel
             </Button>
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Bright}`}
                 type="submit"
             >
-                create
+                Create
             </Button>
         </div>
     );
 
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Row>
                 <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
                     <Container
                         className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
                     >
                         <Form.Group className="text-center">
-                            <Form.Label
-                                className="d-flex justify-content-center"
-                                htmlFor="image-upload"
-                            >
-                                <Asset
-                                    src={Upload}
-                                    message="Click or tap to upload an image"
-                                />
-                            </Form.Label>
+                            {image ? (
+                                <>
+                                    <figure>
+                                        <Image
+                                            className={appStyles.Image}
+                                            src={image}
+                                            rounded
+                                        />
+                                    </figure>
+                                    <div>
+                                        <Form.Label
+                                            className={`${btnStyles.Button} ${btnStyles.Bright} btn`}
+                                            htmlFor="image-upload"
+                                        >
+                                            Change the image
+                                        </Form.Label>
+                                    </div>
+                                </>
+                            ) : (
+                                <Form.Label
+                                    className="d-flex justify-content-center"
+                                    htmlFor="image-upload"
+                                >
+                                    <Asset
+                                        src={Upload}
+                                        message="Click or tap to upload an image"
+                                    />
+                                </Form.Label>
+                            )}
+
+                            <Form.File
+                                className="d-none"
+                                id="image-upload"
+                                accept="image/*"
+                                onChange={handleChangeImage}
+                                ref={imageInput}
+                            />
                         </Form.Group>
                         <div className="d-md-none">{textFields}</div>
                     </Container>
