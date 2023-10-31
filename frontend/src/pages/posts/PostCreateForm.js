@@ -8,15 +8,15 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 
-import Upload from "../assets/upload_96x96.png";
+import Upload from "../../assets/upload_96x96.png";
 
-import styles from "../styles/PostCreateEditForm.module.css";
-import appStyles from "../App.module.css";
-import btnStyles from "../styles/Button.module.css";
-import Asset from "../components/Asset";
+import styles from "../../styles/PostCreateEditForm.module.css";
+import appStyles from "../../App.module.css";
+import btnStyles from "../../styles/Button.module.css";
+import Asset from "../../components/Asset";
 import { Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { axiosReq } from "../api/axiosDefaults";
+import { axiosReq } from "../../api/axiosDefaults";
 
 function PostCreateForm() {
     const [errors, setErrors] = useState({});
