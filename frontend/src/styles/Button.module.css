@@ -1,4 +1,4 @@
-Button {
+.Button {
     font-size: 0.8rem;
     align-self: center;
     border-radius: 100px;
@@ -32,17 +32,10 @@ Button {
     width: 100%;
 }
 
-.Blue,
 .BlueOutline:hover,
 .Bright:hover {
     background-color: #00C69E;
     color: #ffffff;
-}
-
-.BlueOutline,
-.Blue:hover {
-    background-color: #ffffff;
-    color: #00528E;
 }
 
 .Black,
