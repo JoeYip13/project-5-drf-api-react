@@ -77,7 +77,7 @@
     "typescript.format.enable": true,
     "typescript.format.semicolons": "insert",
     "typescript.preferences.quoteStyle": "single",
-    "workbench.iconTheme": "None",
+    "workbench.iconTheme": "theia-file-icons",
     "workbench.tree.expandMode": "singleClick",
     "workbench.tree.indent": 6,
     "workbench.tree.renderIndentGuides": "always",
