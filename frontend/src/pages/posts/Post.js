@@ -1,7 +1,15 @@
 import React from "react";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+    Card,
+    Container,
+    Media,
+    OverlayTrigger,
+    Row,
+    Col,
+    Tooltip,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
@@ -114,13 +122,33 @@ const Post = (props) => {
                 {title && (
                     <Card.Title className="text-center">{title}</Card.Title>
                 )}
-                {content && <Card.Text>{content}</Card.Text>}
-                {model && <Card.Text>{model}</Card.Text>}
-                {year && <Card.Text>{year}</Card.Text>}
-                {bhp && <Card.Text>{bhp}</Card.Text>}
-                {location && <Card.Text>{location}</Card.Text>}
-                {is_modified && <Card.Text>{is_modified}</Card.Text>}
-                {colour && <Card.Text>{colour}</Card.Text>}
+                <Container>
+                    <Row>
+                        <Col>{content && <Card.Text>{content}</Card.Text>}</Col>
+                    </Row>
+                    <Row>
+                        <Col md={4}>
+                            {model && <Card.Text>{model}</Card.Text>}
+                        </Col>
+                        <Col md={4}>
+                            {year && <Card.Text>{year}</Card.Text>}
+                        </Col>
+                        <Col md={4}>{bhp && <Card.Text>{bhp}</Card.Text>}</Col>
+                    </Row>
+                    <Row>
+                        <Col md={4}>
+                            {location && <Card.Text>{location}</Card.Text>}
+                        </Col>
+                        <Col md={4}>
+                            {is_modified && (
+                                <Card.Text>Modified:{is_modified}</Card.Text>
+                            )}
+                        </Col>
+                        <Col md={4}>
+                            {colour && <Card.Text>{colour}</Card.Text>}
+                        </Col>
+                    </Row>
+                </Container>
                 <div className={styles.PostBar}>
                     {is_owner ? (
                         <OverlayTrigger
