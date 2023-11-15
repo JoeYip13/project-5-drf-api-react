@@ -25,6 +25,7 @@ import axios from "axios";
 
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { removeTokenTimestamp } from "../utils/utils";
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
@@ -41,13 +42,26 @@ const NavBar = () => {
             console.log(err);
         }
     };
-    const addPostIcon = (
+
+    const location = useLocation();
+    // Check if the current location matches the events page
+    const isOnEventsPage = location.pathname === "/events";
+
+    const addIcon = isOnEventsPage ? (
+        <NavLink
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+            to="/events/create"
+        >
+            <i class="fa-solid fa-circle-plus"></i>Add Event
+        </NavLink>
+    ) : (
         <NavLink
             className={styles.NavLink}
             activeClassName={styles.Active}
             to="/posts/create"
         >
-            <i class="fa-solid fa-circle-plus"></i>Add post
+            <i class="fa-solid fa-circle-plus"></i>Add Post
         </NavLink>
     );
     const loggedInIcons = (
@@ -116,7 +130,7 @@ const NavBar = () => {
                         <span className={styles.logoText}>Car</span>
                     </Navbar.Brand>
                 </NavLink>
-                {currentUser && addPostIcon}
+                {currentUser && addIcon}
                 <Navbar.Toggle
                     ref={ref}
                     onClick={() => setExpanded(!expanded)}
