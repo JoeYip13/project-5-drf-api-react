@@ -30,6 +30,8 @@ const Event = (props) => {
         updated_at,
         eventPage,
         setEvents,
+        bookmark_id,
+        bookmarks_count,
     } = props;
 
     const currentUser = useCurrentUser();
@@ -49,45 +51,45 @@ const Event = (props) => {
         }
     };
 
-    // const handleLike = async () => {
-    //     try {
-    //         const { data } = await axiosRes.post("/likes/", { post: id });
-    //         setPosts((prevPosts) => ({
-    //             ...prevPosts,
-    //             results: prevPosts.results.map((post) => {
-    //                 return post.id === id
-    //                     ? {
-    //                           ...post,
-    //                           likes_count: post.likes_count + 1,
-    //                           like_id: data.id,
-    //                       }
-    //                     : post;
-    //             }),
-    //         }));
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
+    const handleBookmark = async () => {
+        try {
+            const { data } = await axiosRes.post("/bookmarks/", { event: id });
+            setEvents((prevEvents) => ({
+                ...prevEvents,
+                results: prevEvents.results.map((event) => {
+                    return event.id === id
+                        ? {
+                              ...event,
+                              bookmarks_count: event.bookmarks_count + 1,
+                              bookmark_id: data.id,
+                          }
+                        : event;
+                }),
+            }));
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
-    // const handleUnlike = async () => {
-    //     try {
-    //         await axiosRes.delete(`/likes/${like_id}/`);
-    //         setPosts((prevPosts) => ({
-    //             ...prevPosts,
-    //             results: prevPosts.results.map((post) => {
-    //                 return post.id === id
-    //                     ? {
-    //                           ...post,
-    //                           likes_count: post.likes_count - 1,
-    //                           like_id: null,
-    //                       }
-    //                     : post;
-    //             }),
-    //         }));
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
+    const handleUnbookmark = async () => {
+        try {
+            await axiosRes.delete(`/bookmarks/${bookmark_id}/`);
+            setEvents((prevEvents) => ({
+                ...prevEvents,
+                results: prevEvents.results.map((event) => {
+                    return event.id === id
+                        ? {
+                              ...event,
+                              bookmarks_count: event.bookmarks_count - 1,
+                              bookmark_id: null,
+                          }
+                        : event;
+                }),
+            }));
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <Card className={styles.Post}>
@@ -126,25 +128,25 @@ const Event = (props) => {
                     </Row>
                 </Container>
                 <div className={styles.PostBar}>
-                    {/* {is_owner ? (
+                    {is_owner ? (
                         <OverlayTrigger
                             placement="top"
                             overlay={
                                 <Tooltip>You can't like your own post.</Tooltip>
                             }
                         >
-                            <i class="fa-regular fa-heart"></i>
+                            <i class="fa-regular fa-bookmark"></i>
                         </OverlayTrigger>
-                    ) : like_id ? (
-                        <span onClick={handleUnlike}>
+                    ) : bookmark_id ? (
+                        <span onClick={handleUnbookmark}>
                             <i
-                                className={`fa-solid fa-heart ${styles.Heart}`}
+                                className={`fa-solid fa-bookmark ${styles.Heart}`}
                             />
                         </span>
                     ) : currentUser ? (
-                        <span onClick={handleLike}>
+                        <span onClick={handleBookmark}>
                             <i
-                                className={`fa-regular fa-heart ${styles.HeartOutline}`}
+                                className={`fa-regular fa-bookmark ${styles.HeartOutline}`}
                             ></i>
                         </span>
                     ) : (
@@ -152,10 +154,10 @@ const Event = (props) => {
                             placement="top"
                             overlay={<Tooltip>Log in to like posts</Tooltip>}
                         >
-                            <i className={`fa-regular fa-heart`} />
+                            <i className={`fa-regular fa-bookmark`} />
                         </OverlayTrigger>
                     )}
-                    {likes_count} */}
+                    {bookmarks_count}
                     <Link to={`/events/${id}`}>
                         <i className="far fa-comments" />
                     </Link>
