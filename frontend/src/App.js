@@ -17,6 +17,10 @@ import SignInForm from "./pages/auth/SignInForm";
 import PostCreateForm from "./pages/posts/PostCreateForm";
 import PostPage from "./pages/posts/PostPage";
 import PostsPage from "./pages/posts/PostsPage";
+import EventPage from './pages/events/EventPage';
+import EventsPage from './pages/events/EventsPage';
+import EventCreateForm from './pages/events/EventCreateForm';
+import EventEditForm from './pages/events/EventEditForm';
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import PostEditForm from './pages/posts/PostEditForm';
 import ProfilePage from './pages/profiles/ProfilePage';
@@ -42,13 +46,28 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/feed"
+                        path="/events"
                         render={() => (
-                            <PostsPage
-                                message="No results found. Adjust the search keyword or follow a user"
-                                filter={`owner__followed__owner__profile=${profile_id}&`}
+                            <EventsPage
+                            // message="No results found. Adjust the search keyword or follow a user"
+                            // filter={`owner__followed__owner__profile=${profile_id}&`}
                             />
                         )}
+                    />
+                    <Route
+                        exact
+                        path="/events/create"
+                        render={() => <EventCreateForm />}
+                    />
+                    <Route
+                        exact
+                        path="/events/:id/edit"
+                        render={() => <EventEditForm />}
+                    />
+                    <Route
+                        exact
+                        path="/events/:id"
+                        render={() => <EventPage />}
                     />
                     <Route
                         exact

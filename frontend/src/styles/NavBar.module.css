@@ -8,10 +8,20 @@
     font-size: 2.2rem;
 }
 
+.logoText {
+    display: none
+}
+
 .NavLink {
     padding: 5px;
 }
 
 .Active i {
     color: #181c27;
+}
+
+@media (min-width: 768px) {
+    .logoText {
+        display: inline-block;
+    }
 }

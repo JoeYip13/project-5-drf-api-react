@@ -55,9 +55,9 @@ const NavBar = () => {
             <NavLink
                 className={styles.NavLink}
                 activeClassName={styles.Active}
-                to="/feed"
+                to="/events"
             >
-                <i className="fa-solid fa-stream"></i>Feed
+                <i className="fa-regular fa-calendar-days"></i>Events
             </NavLink>
             <NavLink
                 className={styles.NavLink}
@@ -111,7 +111,7 @@ const NavBar = () => {
             <Container>
                 <NavLink to="/">
                     <Navbar.Brand className={styles.logo}>
-                        Ultimate <img src={logo} alt="logo" height="45" /> Car
+                        <span className={styles.logoText}>Ultimate</span> <img src={logo} alt="logo" height="45" /> <span className={styles.logoText}>Car</span>
                     </Navbar.Brand>
                 </NavLink>
                 {currentUser && addPostIcon}
