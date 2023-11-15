@@ -11,7 +11,8 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
-    content = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+    location = models.CharField(max_length=50, blank=True)
     event_date = models.DateField(blank=False)
 
     image = models.ImageField(
