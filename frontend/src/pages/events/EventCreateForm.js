@@ -124,7 +124,6 @@ function EventCreateForm() {
                     selected={startDate}
                     onChange={handleDateChange}
                     icon="fa fa-calendar"
-                    locale="es"
                     dateFormat="dd-MM-yyyy"
                     className={styles.DatePicker}
                 />

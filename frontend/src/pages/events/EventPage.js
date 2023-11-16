@@ -8,8 +8,8 @@ import appStyles from "../../App.module.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import Event from './Event';
-import CommentCreateForm from "../comments/CommentCreateForm";
-import Comment from '../comments/Comment';
+import ReviewCreateForm from "../reviews/ReviewCreateForm";
+import Review from '../reviews/Review';
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Asset from "../../components/Asset";
@@ -21,17 +21,17 @@ function EventPage() {
     const [event, setEvent] = useState({ results: [] });
     const currentUser = useCurrentUser();
     const profile_image = currentUser?.profile_image;
-    const [comments, setComments] = useState({ results: [] });
+    const [reviews, setReviews] = useState({ results: [] });
 
     useEffect(() => {
         const handleMount = async () => {
             try {
-                const [{ data: event }, {data: comments}] = await Promise.all([
+                const [{ data: event }, {data: reviews}] = await Promise.all([
                     await axiosReq.get(`/events/${id}`),
-                    await axiosReq.get(`/events/?post=${id}`)
+                    await axiosReq.get(`/reviews/?event=${id}`)
                 ]);
                 setEvent({ results: [event] });
-                setComments(comments)
+                setReviews(reviews)
                 console.log(event);
             } catch (error) {
                 console.log(error);
@@ -48,35 +48,35 @@ function EventPage() {
                 <Event {...event.results[0]} setEvents={setEvent} eventPage />
                 <Container className={appStyles.Content}>
                     {currentUser ? (
-                        <CommentCreateForm
+                        <ReviewCreateForm
                             profile_id={currentUser.profile_id}
                             profileImage={profile_image}
                             event={id}
                             setEvent={setEvent}
-                            setComments={setComments}
+                            setReviews={setReviews}
                         />
-                    ) : comments.results.length ? (
-                        "Comments"
+                    ) : reviews.results.length ? (
+                        "Reviews"
                     ) : null}
-                    {comments.results.length ? (
+                    {reviews.results.length ? (
                         <InfiniteScroll
                             children={comments.results.map((comment) => (
-                                <Comment
-                                    key={comment.id}
-                                    {...comment}
+                                <Review
+                                    key={review.id}
+                                    {...review}
                                     setEvent={setEvent}
-                                    setComments={setComments}
+                                    setReviews={setReviews}
                                 />
                             ))}
                             dataLength={comments.results.length}
                             loader={<Asset spinner />}
-                            hasMore={!!comments.next}
-                            next={() => fetchMoreData(comments, setComments)}
+                            hasMore={!!reviews.next}
+                            next={() => fetchMoreData(reviews, setReviews)}
                         />
                     ) : currentUser ? (
-                        <span>No comments yet, be the first to comment!</span>
+                        <span>No reviews yet, be the first to review!</span>
                     ) : (
-                        <span>No comments... yet</span>
+                        <span>No reviews... yet</span>
                     )}
                 </Container>
             </Col>
