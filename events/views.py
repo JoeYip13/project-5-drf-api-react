@@ -14,7 +14,7 @@ class EventList(generics.ListCreateAPIView):
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Event.objects.annotate(
-        comments_count=Count('comment', distinct=True)
+        reviews_count=Count('reviews', distinct=True)
     ).order_by('-created_at')
     filter_backends = [
         filters.OrderingFilter,
@@ -38,7 +38,7 @@ class EventList(generics.ListCreateAPIView):
         'location',
     ]
     ordering_fields = [
-        'comments_count',
+        'reviews_count',
     ]
 
     def perform_create(self, serializer):
@@ -52,5 +52,5 @@ class EventDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EventSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Event.objects.annotate(
-        comments_count=Count('comment', distinct=True)
+        reviews_count=Count('reviews', distinct=True)
     ).order_by('-created_at')
