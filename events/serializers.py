@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Event
+from bookmarks.models import Bookmark
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -8,6 +9,8 @@ class EventSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     comments_count = serializers.ReadOnlyField()
+    bookmark_id = serializers.SerializerMethodField()
+    bookmarks_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -26,6 +29,14 @@ class EventSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def get_bookmark_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            bookmark = Bookmark.objects.filter(
+                owner=user, event=obj
+            ).first()
+            return bookmark.id if bookmark else None
+        return None
 
     class Meta:
         model = Event
@@ -33,5 +44,6 @@ class EventSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
             'title', 'description', 'image', 'location',
-            'event_date', 'comments_count',
+            'event_date', 'comments_count', 'bookmark_id',
+            'bookmarks_count',
         ]
