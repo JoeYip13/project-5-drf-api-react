@@ -14,7 +14,8 @@ class EventList(generics.ListCreateAPIView):
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Event.objects.annotate(
-        reviews_count=Count('reviews', distinct=True)
+        reviews_count=Count('reviews', distinct=True),
+        bookmarks_count=Count('bookmarks', distinct=True)
     ).order_by('-created_at')
     filter_backends = [
         filters.OrderingFilter,
@@ -39,6 +40,8 @@ class EventList(generics.ListCreateAPIView):
     ]
     ordering_fields = [
         'reviews_count',
+        'bookmarks_count',
+        'bookmarks__created_at',
     ]
 
     def perform_create(self, serializer):
