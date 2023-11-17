@@ -33,7 +33,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         ]
 
 
-class ReviewDetailSerializer(CommentSerializer):
+class ReviewDetailSerializer(ReviewSerializer):
     """
     Serializer for the Review model used in Detail view
     Event is a read only field so that we dont have to set it on each update
