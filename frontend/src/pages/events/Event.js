@@ -15,6 +15,7 @@ import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { format } from 'date-fns';
 
 const Event = (props) => {
     const {
@@ -22,7 +23,7 @@ const Event = (props) => {
         owner,
         profile_id,
         profile_image,
-        comments_count,
+        reviews_count,
         title,
         description,
         location,
@@ -32,6 +33,7 @@ const Event = (props) => {
         setEvents,
         bookmark_id,
         bookmarks_count,
+        event_date,
     } = props;
 
     const currentUser = useCurrentUser();
@@ -91,6 +93,8 @@ const Event = (props) => {
         }
     };
 
+    const formattedDate = format(new Date(event_date), 'dd-MM-yyy')
+
     return (
         <Card className={styles.Post}>
             <Card.Body>
@@ -119,40 +123,52 @@ const Event = (props) => {
                 )}
                 <Container>
                     <Row>
-                        <Col>{description && <Card.Text>{description}</Card.Text>}</Col>
+                        <Col>
+                            {description && (
+                                <Card.Text>{description}</Card.Text>
+                            )}
+                        </Col>
                     </Row>
                     <Row>
                         <Col md={4}>
                             {location && <Card.Text>{location}</Card.Text>}
                         </Col>
                     </Row>
+                    <Row>
+                        <Col md={4}>
+                            {formattedDate && (
+                                <Card.Text>{formattedDate}</Card.Text>
+                            )}
+                        </Col>
+                    </Row>
                 </Container>
                 <div className={styles.PostBar}>
                     {is_owner ? (
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={
-                                <Tooltip>You can't like your own post.</Tooltip>
-                            }
-                        >
-                            <i class="fa-regular fa-bookmark"></i>
-                        </OverlayTrigger>
-                    ) : bookmark_id ? (
+                        // If the user is the owner of the event, allow them to bookmark their own event
+                        <span onClick={handleBookmark}>
+                            <i
+                                className={`fa-regular fa-bookmark ${styles.HeartOutline}`}
+                            ></i>
+                        </span>
+                    ) : // If the event is already bookmarked, show a filled heart icon and allow the user to unbookmark
+                    bookmark_id ? (
                         <span onClick={handleUnbookmark}>
                             <i
                                 className={`fa-solid fa-bookmark ${styles.Heart}`}
                             />
                         </span>
                     ) : currentUser ? (
+                        // If the event is not bookmarked and the user is logged in, show an outline heart icon and allow the user to bookmark
                         <span onClick={handleBookmark}>
                             <i
                                 className={`fa-regular fa-bookmark ${styles.HeartOutline}`}
                             ></i>
                         </span>
                     ) : (
+                        // If the event is not bookmarked and the user is not logged in, show an outline heart icon with a tooltip prompting to log in
                         <OverlayTrigger
                             placement="top"
-                            overlay={<Tooltip>Log in to like posts</Tooltip>}
+                            overlay={<Tooltip>Log in to bookmark events</Tooltip>}
                         >
                             <i className={`fa-regular fa-bookmark`} />
                         </OverlayTrigger>
@@ -161,7 +177,7 @@ const Event = (props) => {
                     <Link to={`/events/${id}`}>
                         <i className="far fa-comments" />
                     </Link>
-                    {comments_count}
+                    {reviews_count}
                 </div>
             </Card.Body>
         </Card>
