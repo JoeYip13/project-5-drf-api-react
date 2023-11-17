@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+// Bootstrap imports
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
+import Alert from "react-bootstrap/Alert";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 import styles from "../../styles/CommentCreateEditForm.module.css";
 import Avatar from "../../components/Avatar";
@@ -12,16 +14,17 @@ function ReviewCreateForm(props) {
     const { event, setEvent, setReviews, profileImage, profile_id } = props;
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
+    const [errors, setErrors] = useState({});
 
-    const handleReviewChange = (event) => {
-        setReview(event.target.value);
+    const handleReviewChange = (e) => {
+        setReview(e.target.value);
     };
 
-    const handleRatingChange = (event) => {
-        setRating(event.target.value);
+    const handleRatingChange = (e) => {
+        setRating(e.target.value);
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (e) => {
         event.preventDefault();
         try {
             const { data } = await axiosRes.post("/reviews/", {
@@ -43,6 +46,10 @@ function ReviewCreateForm(props) {
             setReview("");
             setRating("");
         } catch (err) {
+            if (err.response?.status !== 401) {
+                setErrors({ detail: err.response?.data.detail });
+                console.log(err.response);
+            }
             console.log(err);
         }
     };
