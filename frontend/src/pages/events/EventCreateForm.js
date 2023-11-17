@@ -30,6 +30,7 @@ function EventCreateForm() {
         title: "",
         description: "",
         event_date: "",
+        event_time: "",
         location: "",
         image: "",
     });
@@ -38,6 +39,7 @@ function EventCreateForm() {
         title,
         description,
         event_date,
+        event_time,
         image,
         location,
     } = eventData;
@@ -75,12 +77,14 @@ function EventCreateForm() {
         formData.append("description", description);
         formData.append("image", imageInput.current.files[0]);
         formData.append("event_date", event_date);
+        formData.append("event_time", event_time);
         formData.append("location", location);
         console.log(Object.fromEntries(formData.entries()));
 
         try {
             const { data } = await axiosReq.post("/events/", formData);
             history.push(`/events/${data.id}`);
+            console.log(data);
         } catch (error) {
             console.log(error);
             if (error.response?.status !== 401) {
@@ -115,26 +119,44 @@ function EventCreateForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.description?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Event Date</Form.Label>
                 <div className={styles.DatePickerWrapper}>
-                <DatePicker
-                    closeOnScroll={true}
-                    showIcon
-                    selected={startDate}
-                    onChange={handleDateChange}
-                    icon="fa fa-calendar"
-                    dateFormat="dd-MM-yyyy"
-                    className={styles.DatePicker}
-                />
+                    <DatePicker
+                        closeOnScroll={true}
+                        showIcon
+                        selected={startDate}
+                        onChange={handleDateChange}
+                        icon="fa fa-calendar"
+                        dateFormat="dd-MM-yyyy"
+                        className={styles.DatePicker}
+                    />
                 </div>
-                {/* <Form.Control
-                    type="text"
-                    name="event_date"
-                    value={event_date}
-                    onChange={handleChange}
-                /> */}
             </Form.Group>
+            {errors?.event_date?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
+            <Form.Group>
+                <Form.Label>Time</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="event_time"
+                    value={event_time}
+                    onChange={handleChange}
+                />
+            </Form.Group>
+            {errors?.event_time?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Location</Form.Label>
                 <Form.Control
@@ -144,6 +166,11 @@ function EventCreateForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.location?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
 
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Bright}`}
@@ -206,6 +233,11 @@ function EventCreateForm() {
                                 ref={imageInput}
                             />
                         </Form.Group>
+                        {errors?.image?.map((message, idx) => (
+                            <Alert variant="warning" key={idx}>
+                                {message}
+                            </Alert>
+                        ))}
                         <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>

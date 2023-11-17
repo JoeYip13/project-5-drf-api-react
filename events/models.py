@@ -13,7 +13,9 @@ class Event(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     location = models.CharField(max_length=50, blank=True)
-    event_date = models.DateField(blank=False)
+    # event_date = models.DateField(blank=True)
+    event_date = models.TextField(blank=True)
+    event_time = models.TextField(blank=True)
 
     image = models.ImageField(
         upload_to='images/', default='../ultimate-m-car/default_post_xq3ozj',
