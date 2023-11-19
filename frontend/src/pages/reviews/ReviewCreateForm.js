@@ -25,10 +25,11 @@ function ReviewCreateForm(props) {
     };
 
     const handleSubmit = async (e) => {
-        event.preventDefault();
+        e.preventDefault();
         try {
             const { data } = await axiosRes.post("/reviews/", {
                 review,
+                rating,
                 event,
             });
             setReviews((prevReviews) => ({

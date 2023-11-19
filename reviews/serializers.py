@@ -1,5 +1,6 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
+from django.db import IntegrityError
 from .models import Review
 
 
@@ -24,6 +25,14 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def get_updated_at(self, obj):
         return naturaltime(obj.updated_at)
+
+    def create(self, validated_data):
+        try:
+            return super().create(validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError(
+                {"detail": "You have already reviewed this event!"}
+            )
 
     class Meta:
         model = Review
