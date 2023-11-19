@@ -16,7 +16,7 @@ class Post(models.Model):
     year = models.PositiveIntegerField(blank=True)
     bhp = models.PositiveIntegerField(blank=True)
     location = models.CharField(max_length=50, blank=True)
-    is_modified = models.BooleanField(default=False)
+    is_modified = models.CharField(max_length=10, blank=True)
     colour = models.CharField(max_length=50, blank=True)
 
     image = models.ImageField(

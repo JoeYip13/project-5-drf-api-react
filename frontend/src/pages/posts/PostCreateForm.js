@@ -23,7 +23,6 @@ function PostCreateForm() {
     useRedirect("loggedOut");
     const [errors, setErrors] = useState({});
 
-    const [isChecked, setIsChecked] = useState(false);
     const [postData, setPostData] = useState({
         title: "",
         content: "",
@@ -32,7 +31,7 @@ function PostCreateForm() {
         year: "",
         bhp: "",
         location: "",
-        is_modified: isChecked,
+        is_modified: "No",
         colour: "",
     });
 
@@ -55,8 +54,6 @@ function PostCreateForm() {
         setPostData({
             ...postData,
             [event.target.name]: event.target.value,
-            [event.target.name === is_modified]: (event.target.value =
-                setIsChecked(!isChecked)),
         });
     };
 
@@ -105,6 +102,7 @@ function PostCreateForm() {
                     name="title"
                     value={title}
                     onChange={handleChange}
+                    placeholder="e.g M3 F80"
                 />
             </Form.Group>
             {errors?.title?.map((message, idx) => (
@@ -122,6 +120,11 @@ function PostCreateForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.content?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Model</Form.Label>
                 <Form.Control
@@ -129,8 +132,14 @@ function PostCreateForm() {
                     name="model"
                     value={model}
                     onChange={handleChange}
+                    placeholder="e.g M3 F80"
                 />
             </Form.Group>
+            {errors?.model?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Year</Form.Label>
                 <Form.Control
@@ -138,8 +147,14 @@ function PostCreateForm() {
                     name="year"
                     value={year}
                     onChange={handleChange}
+                    placeholder="e.g 2016"
                 />
             </Form.Group>
+            {errors?.year?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>BHP</Form.Label>
                 <Form.Control
@@ -147,8 +162,14 @@ function PostCreateForm() {
                     name="bhp"
                     value={bhp}
                     onChange={handleChange}
+                    placeholder="e.g 425"
                 />
             </Form.Group>
+            {errors?.bhp?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Location</Form.Label>
                 <Form.Control
@@ -156,17 +177,30 @@ function PostCreateForm() {
                     name="location"
                     value={location}
                     onChange={handleChange}
+                    placeholder="e.g United Kingdom"
                 />
             </Form.Group>
+            {errors?.location?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
-                <Form.Label>Is Modified</Form.Label>
-                <Form.Check
-                    type="checkbox"
-                    label="Yes"
+                <Form.Label>Modified</Form.Label>
+                <Form.Control
+                    as="select"
                     name="is_modified"
-                    value={!isChecked}
+                    value={is_modified}
                     onChange={handleChange}
-                />
+                >
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </Form.Control>
+                {errors?.is_modified?.map((message, idx) => (
+                    <Alert variant="warning" key={idx}>
+                        {message}
+                    </Alert>
+                ))}
             </Form.Group>
             <Form.Group>
                 <Form.Label>Colour</Form.Label>
@@ -175,8 +209,14 @@ function PostCreateForm() {
                     name="colour"
                     value={colour}
                     onChange={handleChange}
+                    placeholder="e.g Mineral Grey Metallic"
                 />
             </Form.Group>
+            {errors?.colour?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
 
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Bright}`}
@@ -239,6 +279,11 @@ function PostCreateForm() {
                                 ref={imageInput}
                             />
                         </Form.Group>
+                        {errors?.image?.map((message, idx) => (
+                            <Alert variant="warning" key={idx}>
+                                {message}
+                            </Alert>
+                        ))}
                         <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>
