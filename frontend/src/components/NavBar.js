@@ -3,6 +3,7 @@ import React from "react";
 // Bootstrap Components
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from "react-bootstrap/Container";
 
 // Import Logo
@@ -25,7 +26,7 @@ import axios from "axios";
 
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { removeTokenTimestamp } from "../utils/utils";
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
@@ -46,8 +47,26 @@ const NavBar = () => {
     const location = useLocation();
     // Check if the current location matches the events page
     const isOnEventsPage = location.pathname === "/events";
+    const isOnEventCreatePage = location.pathname === "/events/create";
+    const isOnEventDetailPage = /^\/events\/\d+$/.test(location.pathname);
 
     const addIcon = isOnEventsPage ? (
+        <NavLink
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+            to="/events/create"
+        >
+            <i class="fa-solid fa-circle-plus"></i>Add Event
+        </NavLink>
+    ) : isOnEventCreatePage ? (
+        <NavLink
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+            to="/events/create"
+        >
+            <i class="fa-solid fa-circle-plus"></i>Add Event
+        </NavLink>
+    ) : isOnEventDetailPage ? (
         <NavLink
             className={styles.NavLink}
             activeClassName={styles.Active}
@@ -73,25 +92,41 @@ const NavBar = () => {
             >
                 <i className="fa-regular fa-calendar-days"></i>Events
             </NavLink>
-            <NavLink
-                className={styles.NavLink}
-                activeClassName={styles.Active}
-                to="/liked"
-            >
-                <i className="fa-solid fa-heart"></i>Liked
-            </NavLink>
+
             <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
                 <i class="fa-solid fa-right-from-bracket"></i>Sign out
             </NavLink>
             <NavLink
                 className={styles.NavLink}
                 to={`/profiles/${currentUser?.profile_id}`}
-            ></NavLink>
-            <Avatar
-                src={currentUser?.profile_image}
-                text={currentUser?.username}
-                height={50}
-            />
+            >
+                <Avatar
+                    src={currentUser?.profile_image}
+                    text={currentUser?.username}
+                    height={50}
+                />
+            </NavLink>
+            <NavDropdown id="basic-nav-dropdown">
+                <NavDropdown.Item>
+                    <NavLink
+                        className={styles.NavLink}
+                        activeClassName={styles.Active}
+                        to="/liked"
+                    >
+                        <i className="fa-solid fa-heart"></i>Liked
+                    </NavLink>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                    <NavLink
+                        className={styles.NavLink}
+                        activeClassName={styles.Active}
+                        to="/bookmarked"
+                    >
+                        <i className="fa-solid fa-bookmark"></i>
+                        Bookmarked
+                    </NavLink>
+                </NavDropdown.Item>
+            </NavDropdown>
         </>
     );
     const loggedOutIcons = (
@@ -144,7 +179,7 @@ const NavBar = () => {
                             exact
                             to="/"
                         >
-                            <i class="fa-solid fa-house"></i>Home
+                            <i class="fa-solid fa-bars-staggered"></i>Feed
                         </NavLink>
                         {currentUser ? loggedInIcons : loggedOutIcons}
                     </Nav>

@@ -156,12 +156,14 @@ const Event = (props) => {
                 </Container>
                 <div className={styles.PostBar}>
                     {is_owner ? (
-                        // If the user is the owner of the event, allow them to bookmark their own event
-                        <span onClick={handleBookmark}>
-                            <i
-                                className={`fa-regular fa-bookmark ${styles.HeartOutline}`}
-                            ></i>
-                        </span>
+                        <OverlayTrigger
+                            placement="top"
+                            overlay={
+                                <Tooltip>You can't bookmark your own event.</Tooltip>
+                            }
+                        >
+                            <i class="fa-regular fa-bookmark"></i>
+                        </OverlayTrigger>
                     ) : // If the event is already bookmarked, show a filled heart icon and allow the user to unbookmark
                     bookmark_id ? (
                         <span onClick={handleUnbookmark}>
