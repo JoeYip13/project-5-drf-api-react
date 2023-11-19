@@ -55,5 +55,6 @@ class EventDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EventSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Event.objects.annotate(
-        reviews_count=Count('reviews', distinct=True)
+        reviews_count=Count('reviews', distinct=True),
+        bookmarks_count=Count('bookmarks', distinct=True),
     ).order_by('-created_at')
