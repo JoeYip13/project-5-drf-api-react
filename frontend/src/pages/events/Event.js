@@ -102,7 +102,7 @@ const Event = (props) => {
                         {owner}
                     </Link>
                     <div className="d-flex align-items-center">
-                        <span>This is updated at {updated_at}</span>
+                        <span>{updated_at}</span>
                         {is_owner && eventPage && (
                             <MoreDropdown
                                 handleEdit={handleEdit}
@@ -127,20 +127,29 @@ const Event = (props) => {
                             )}
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className="py-3">
                         <Col md={4}>
                             {location && (
-                                <Card.Text>Location: {location}</Card.Text>
+                                <Card.Text>
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    Location: {location}
+                                </Card.Text>
                             )}
                         </Col>
                         <Col md={4}>
                             {event_date && (
-                                <Card.Text>Date: {event_date}</Card.Text>
+                                <Card.Text>
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    Date: {event_date}
+                                </Card.Text>
                             )}
                         </Col>
                         <Col md={4}>
                             {event_time && (
-                                <Card.Text>Time: {event_time}</Card.Text>
+                                <Card.Text>
+                                    <i class="fa-solid fa-clock"></i>
+                                    Time: {event_time}
+                                </Card.Text>
                             )}
                         </Col>
                     </Row>
