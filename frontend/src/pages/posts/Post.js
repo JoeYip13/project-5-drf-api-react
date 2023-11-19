@@ -123,29 +123,59 @@ const Post = (props) => {
                     <Card.Title className="text-center">{title}</Card.Title>
                 )}
                 <Container>
-                    <Row>
+                    <Row className="py-3">
                         <Col>{content && <Card.Text>{content}</Card.Text>}</Col>
                     </Row>
                     <Row>
                         <Col md={4}>
-                            {model && <Card.Text>{model}</Card.Text>}
-                        </Col>
-                        <Col md={4}>
-                            {year && <Card.Text>{year}</Card.Text>}
-                        </Col>
-                        <Col md={4}>{bhp && <Card.Text>{bhp}</Card.Text>}</Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            {location && <Card.Text>{location}</Card.Text>}
-                        </Col>
-                        <Col md={4}>
-                            {is_modified && (
-                                <Card.Text>Modified:{is_modified}</Card.Text>
+                            {model && (
+                                <Card.Text>
+                                    <i class="fa-solid fa-certificate"></i>
+                                     {model}
+                                </Card.Text>
                             )}
                         </Col>
                         <Col md={4}>
-                            {colour && <Card.Text>{colour}</Card.Text>}
+                            {year && (
+                                <Card.Text>
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                     {year}
+                                </Card.Text>
+                            )}
+                        </Col>
+                        <Col md={4}>
+                            {bhp && (
+                                <Card.Text>
+                                    <i class="fa-solid fa-gauge-high"></i>
+                                     {bhp}
+                                </Card.Text>
+                            )}
+                        </Col>
+                    </Row>
+                    <Row className="py-3">
+                        <Col md={4}>
+                            {location && (
+                                <Card.Text>
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    {location}
+                                </Card.Text>
+                            )}
+                        </Col>
+                        <Col md={4}>
+                            {is_modified && (
+                                <Card.Text>
+                                    <i class="fa-solid fa-gear"></i>
+                                    {is_modified}
+                                </Card.Text>
+                            )}
+                        </Col>
+                        <Col md={4}>
+                            {colour && (
+                                <Card.Text>
+                                    <i class="fa-solid fa-palette"></i>
+                                    {colour}
+                                </Card.Text>
+                            )}
                         </Col>
                     </Row>
                 </Container>

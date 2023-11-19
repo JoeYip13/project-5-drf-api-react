@@ -52,12 +52,6 @@ i {
     vertical-align: middle;
 }
 
-i:hover {
-    cursor: pointer;
-    transition: color ease-in-out 0.3s;
-    color: #181c27;
-}
-
 figure {
     text-align: center;
     display: inline-block;
