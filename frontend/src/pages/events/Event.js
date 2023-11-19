@@ -15,7 +15,6 @@ import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { format } from 'date-fns';
 
 const Event = (props) => {
     const {
@@ -34,6 +33,7 @@ const Event = (props) => {
         bookmark_id,
         bookmarks_count,
         event_date,
+        event_time,
     } = props;
 
     const currentUser = useCurrentUser();
@@ -93,8 +93,6 @@ const Event = (props) => {
         }
     };
 
-    const formattedDate = format(new Date(event_date), 'dd-MM-yyy')
-
     return (
         <Card className={styles.Post}>
             <Card.Body>
@@ -104,7 +102,7 @@ const Event = (props) => {
                         {owner}
                     </Link>
                     <div className="d-flex align-items-center">
-                        <span>{updated_at}</span>
+                        <span>This is updated at {updated_at}</span>
                         {is_owner && eventPage && (
                             <MoreDropdown
                                 handleEdit={handleEdit}
@@ -131,13 +129,18 @@ const Event = (props) => {
                     </Row>
                     <Row>
                         <Col md={4}>
-                            {location && <Card.Text>{location}</Card.Text>}
+                            {location && (
+                                <Card.Text>Location: {location}</Card.Text>
+                            )}
                         </Col>
-                    </Row>
-                    <Row>
                         <Col md={4}>
-                            {formattedDate && (
-                                <Card.Text>{formattedDate}</Card.Text>
+                            {event_date && (
+                                <Card.Text>Date: {event_date}</Card.Text>
+                            )}
+                        </Col>
+                        <Col md={4}>
+                            {event_time && (
+                                <Card.Text>Time: {event_time}</Card.Text>
                             )}
                         </Col>
                     </Row>
@@ -168,7 +171,9 @@ const Event = (props) => {
                         // If the event is not bookmarked and the user is not logged in, show an outline heart icon with a tooltip prompting to log in
                         <OverlayTrigger
                             placement="top"
-                            overlay={<Tooltip>Log in to bookmark events</Tooltip>}
+                            overlay={
+                                <Tooltip>Log in to bookmark events</Tooltip>
+                            }
                         >
                             <i className={`fa-regular fa-bookmark`} />
                         </OverlayTrigger>

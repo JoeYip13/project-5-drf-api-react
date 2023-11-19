@@ -18,13 +18,10 @@ import { Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useRedirect } from "../../hooks/useRedirect";
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css"
 
 function EventCreateForm() {
     useRedirect("loggedOut");
     const [errors, setErrors] = useState({});
-    const [startDate, setStartDate] = useState(new Date());
 
     const [eventData, setEventData] = useState({
         title: "",
@@ -62,11 +59,6 @@ function EventCreateForm() {
                 image: URL.createObjectURL(event.target.files[0]),
             });
         }
-    };
-
-    const handleDateChange = (date) => {
-        handleChange({target: {name: 'event_date', value: date} });
-        setStartDate(date);
     };
 
     const handleSubmit = async (event) => {
@@ -126,17 +118,13 @@ function EventCreateForm() {
             ))}
             <Form.Group>
                 <Form.Label>Event Date</Form.Label>
-                <div className={styles.DatePickerWrapper}>
-                    <DatePicker
-                        closeOnScroll={true}
-                        showIcon
-                        selected={startDate}
-                        onChange={handleDateChange}
-                        icon="fa fa-calendar"
-                        dateFormat="dd-MM-yyyy"
-                        className={styles.DatePicker}
-                    />
-                </div>
+                <Form.Control
+                    type="text"
+                    rows={6}
+                    name="event_date"
+                    value={event_date}
+                    onChange={handleChange}
+                />
             </Form.Group>
             {errors?.event_date?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
