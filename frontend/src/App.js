@@ -126,6 +126,16 @@ function App() {
                         path="/profiles/:id/edit"
                         render={() => <ProfileEditForm />}
                     />
+                    <Route
+                        exact
+                        path="/profiles/posts/:id"
+                        render={() => <PostPage />}
+                    />
+                    <Route
+                        exact
+                        path="/profiles/events/:id"
+                        render={() => <EventPage />}
+                    />
                     <Route render={() => <NotFound />} />
                 </Switch>
             </Container>
