@@ -127,33 +127,33 @@ const Post = (props) => {
                         <Col>{content && <Card.Text>{content}</Card.Text>}</Col>
                     </Row>
                     <Row>
-                        <Col md={4}>
+                        <Col sm={6}>
                             {model && (
                                 <Card.Text>
                                     <i class="fa-solid fa-certificate"></i>
-                                     {model}
+                                    {model}
                                 </Card.Text>
                             )}
                         </Col>
-                        <Col md={4}>
+                        <Col sm={6}>
                             {year && (
                                 <Card.Text>
                                     <i class="fa-solid fa-calendar-check"></i>
-                                     {year}
-                                </Card.Text>
-                            )}
-                        </Col>
-                        <Col md={4}>
-                            {bhp && (
-                                <Card.Text>
-                                    <i class="fa-solid fa-gauge-high"></i>
-                                     {bhp}
+                                    {year}
                                 </Card.Text>
                             )}
                         </Col>
                     </Row>
-                    <Row className="py-3">
-                        <Col md={4}>
+                    <Row>
+                        <Col sm={6}>
+                            {bhp && (
+                                <Card.Text>
+                                    <i class="fa-solid fa-gauge-high"></i>
+                                    {bhp}
+                                </Card.Text>
+                            )}
+                        </Col>
+                        <Col sm={6}>
                             {location && (
                                 <Card.Text>
                                     <i class="fa-solid fa-location-dot"></i>
@@ -161,7 +161,9 @@ const Post = (props) => {
                                 </Card.Text>
                             )}
                         </Col>
-                        <Col md={4}>
+                    </Row>
+                    <Row>
+                        <Col sm={6}>
                             {is_modified && (
                                 <Card.Text>
                                     <i class="fa-solid fa-gear"></i>
@@ -169,7 +171,7 @@ const Post = (props) => {
                                 </Card.Text>
                             )}
                         </Col>
-                        <Col md={4}>
+                        <Col sm={6}>
                             {colour && (
                                 <Card.Text>
                                     <i class="fa-solid fa-palette"></i>
