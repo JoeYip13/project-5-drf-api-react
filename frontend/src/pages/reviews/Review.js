@@ -68,7 +68,7 @@ const Review = (props) => {
                             setShowEditForm={setShowEditForm}
                         />
                     ) : (
-                        <p>{review} {rating}</p>
+                        <p>{rating} <br /> {review}</p>
                     )}
                 </Media.Body>
                 {is_owner && !showEditForm && (

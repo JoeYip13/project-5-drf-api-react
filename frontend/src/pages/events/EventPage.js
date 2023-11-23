@@ -49,6 +49,7 @@ function EventPage() {
                 <Container className={appStyles.Content}>
                     {currentUser ? (
                         <ReviewCreateForm
+                            owner={currentUser.username}
                             profile_id={currentUser.profile_id}
                             profileImage={profile_image}
                             event={id}

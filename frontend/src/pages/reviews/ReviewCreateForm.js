@@ -9,9 +9,10 @@ import Row from "react-bootstrap/Row";
 import styles from "../../styles/CommentCreateEditForm.module.css";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
+import { Container } from "react-bootstrap";
 
 function ReviewCreateForm(props) {
-    const { event, setEvent, setReviews, profileImage, profile_id } = props;
+    const { event, setEvent, setReviews, profileImage, profile_id, owner } = props;
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
     const [errors, setErrors] = useState({});
@@ -57,65 +58,71 @@ function ReviewCreateForm(props) {
 
     return (
         <Form className="mt-2" onSubmit={handleSubmit}>
-            <Row>
-                <Col md="1" lg="1">
-                    <Link to={`/profiles/${profile_id}`}>
-                        <Avatar src={profileImage} />
-                    </Link>
-                </Col>
-                <Col xs="auto" md="4" lg="4">
-                    <Form.Group>
-                        <Form.Label className="d-none">Rating</Form.Label>
-                        <Form.Control
-                            className={styles.Form}
-                            as="select"
-                            name="rating"
-                            value={rating}
-                            onChange={handleRatingChange}
-                        >
-                            <option key="blankChoice" hidden value>
-                                {" "}
-                                Rating{" "}
-                            </option>
-                            <option value="5 stars">5 stars</option>
-                            <option value="4 stars">4 stars</option>
-                            <option value="3 stars">3 stars</option>
-                            <option value="2 stars">2 stars</option>
-                            <option value="1 star">1 star</option>
-                            <option value="0 stars">0 stars</option>
-                        </Form.Control>
-                    </Form.Group>
-                    {errors.rating?.map((message, idx) => (
-                        <Alert key={idx} variant="warning">
-                            {message}
-                        </Alert>
-                    ))}
-                </Col>
-                <Col md="7" lg="7">
-                    <Form.Group>
-                        <Form.Label className="d-none">Review</Form.Label>
-                        <Form.Control
-                            className={styles.Form}
-                            placeholder="My review..."
-                            as="textarea"
-                            value={review}
-                            onChange={handleReviewChange}
-                            rows={1}
-                        />
-                    </Form.Group>
-                    {errors.review?.map((message, idx) => (
-                        <Alert key={idx} variant="warning">
-                            {message}
-                        </Alert>
-                    ))}
-                </Col>
-            </Row>
+            <Link to={`/profiles/${profile_id}`}>
+                <Avatar src={profileImage} />
+                <span className={styles.Owner}>{owner}</span>
+            </Link>
+
+            <Container>
+                <Row>
+                    <Col md={1} lg={1}></Col>
+                    <Col xs={4}>
+                        <Form.Group>
+                            <Form.Label className="d-none">Rating</Form.Label>
+                            <Form.Control
+                                className={styles.Form}
+                                as="select"
+                                name="rating"
+                                value={rating}
+                                onChange={handleRatingChange}
+                            >
+                                <option key="blankChoice" hidden value>
+                                    {" "}
+                                    Rating{" "}
+                                </option>
+                                <option value="5 stars">5 stars</option>
+                                <option value="4 stars">4 stars</option>
+                                <option value="3 stars">3 stars</option>
+                                <option value="2 stars">2 stars</option>
+                                <option value="1 star">1 star</option>
+                                <option value="0 stars">0 stars</option>
+                            </Form.Control>
+                        </Form.Group>
+                        {errors.rating?.map((message, idx) => (
+                            <Alert key={idx} variant="warning">
+                                {message}
+                            </Alert>
+                        ))}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={1} lg={1}></Col>
+                    <Col xs={11}>
+                        <Form.Group>
+                            <Form.Label className="d-none">Review</Form.Label>
+                            <Form.Control
+                                className={styles.Form}
+                                placeholder="My review..."
+                                as="textarea"
+                                value={review}
+                                onChange={handleReviewChange}
+                                rows={1}
+                            />
+                        </Form.Group>
+                        {errors.review?.map((message, idx) => (
+                            <Alert key={idx} variant="warning">
+                                {message}
+                            </Alert>
+                        ))}
+                    </Col>
+                </Row>
+            </Container>
             <button
                 className={`${styles.Button} btn d-block ml-auto`}
                 disabled={!review.trim()}
                 type="submit"
             >
-                post
+                Post
             </button>
             {errors.detail && (
                 <Alert variant="warning" className="mt-3">
