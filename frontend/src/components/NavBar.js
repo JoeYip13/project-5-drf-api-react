@@ -1,9 +1,10 @@
 import React from "react";
+import { useState } from "react";
 
 // Bootstrap Components
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 
 // Import Logo
@@ -24,7 +25,6 @@ import Avatar from "./Avatar";
 // Axios
 import axios from "axios";
 
-import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { removeTokenTimestamp } from "../utils/utils";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -32,7 +32,7 @@ const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
 
-    const { expanded, setExpanded, ref } = useClickOutsideToggle();
+    const [toggleNavBar, setToggleNavBar] = useState(false);
 
     const handleSignOut = async () => {
         try {
@@ -107,7 +107,11 @@ const NavBar = () => {
                 />
             </NavLink>
             <NavDropdown id="basic-nav-dropdown">
-                <NavDropdown.Item>
+                <NavDropdown.Item
+                    onClick={() => {
+                        setToggleNavBar(!toggleNavBar);
+                    }}
+                >
                     <NavLink
                         className={styles.NavLink}
                         activeClassName={styles.Active}
@@ -116,7 +120,11 @@ const NavBar = () => {
                         <i className="fa-solid fa-heart"></i>Liked
                     </NavLink>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
+                <NavDropdown.Item
+                    onClick={() => {
+                        setToggleNavBar(!toggleNavBar);
+                    }}
+                >
                     <NavLink
                         className={styles.NavLink}
                         activeClassName={styles.Active}
@@ -152,7 +160,7 @@ const NavBar = () => {
 
     return (
         <Navbar
-            expanded={expanded}
+            expanded={toggleNavBar}
             className={styles.NavBar}
             expand="md"
             fixed="top"
@@ -167,8 +175,7 @@ const NavBar = () => {
                 </NavLink>
                 {currentUser && addIcon}
                 <Navbar.Toggle
-                    ref={ref}
-                    onClick={() => setExpanded(!expanded)}
+                    onClick={() => setToggleNavBar(!toggleNavBar)}
                     aria-controls="basic-navbar-nav"
                 />
                 <Navbar.Collapse id="basic-navbar-nav">
