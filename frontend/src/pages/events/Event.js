@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import {
-    Card,
-    Container,
-    Media,
-    OverlayTrigger,
-    Row,
-    Col,
-    Tooltip,
-} from "react-bootstrap";
+
+// Bootstrap components
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import Media from "react-bootstrap/Media";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Tooltip from "react-bootstrap/Tooltip";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+
+import btnStyles from "../../styles/Button.module.css";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
@@ -39,6 +43,11 @@ const Event = (props) => {
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
     const history = useHistory();
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const handleEdit = () => {
         history.push(`/events/${id}/edit`);
@@ -94,109 +103,137 @@ const Event = (props) => {
     };
 
     return (
-        <Card className={styles.Post}>
-            <Card.Body>
-                <Media className="align-items-center justify-content-between">
-                    <Link to={`/profiles/${profile_id}`}>
-                        <Avatar src={profile_image} height={55} />
-                        {owner}
-                    </Link>
-                    <div className="d-flex align-items-center">
-                        <span>{updated_at}</span>
-                        {is_owner && eventPage && (
-                            <MoreDropdown
-                                handleEdit={handleEdit}
-                                handleDelete={handleDelete}
-                            />
-                        )}
-                    </div>
-                </Media>
-            </Card.Body>
-            <Link to={`events/${id}`}>
-                <Card.Img src={image} alt={title} />
-            </Link>
-            <Card.Body>
-                {title && (
-                    <Card.Title className="text-center">{title}</Card.Title>
-                )}
-                <Container>
-                    <Row>
-                        <Col>
-                            {description && (
-                                <Card.Text>{description}</Card.Text>
+        <>
+            <Card className={styles.Post}>
+                <Card.Body>
+                    <Media className="align-items-center justify-content-between">
+                        <Link to={`/profiles/${profile_id}`}>
+                            <Avatar src={profile_image} height={55} />
+                            {owner}
+                        </Link>
+                        <div className="d-flex align-items-center">
+                            <span>{updated_at}</span>
+                            {is_owner && eventPage && (
+                                <MoreDropdown
+                                    handleEdit={handleEdit}
+                                    handleDelete={handleShow}
+                                />
                             )}
-                        </Col>
-                    </Row>
-                    <Row className="py-3">
-                        <Col md={4}>
-                            {location && (
-                                <Card.Text>
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    Location: {location}
-                                </Card.Text>
-                            )}
-                        </Col>
-                        <Col md={4}>
-                            {event_date && (
-                                <Card.Text>
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    Date: {event_date}
-                                </Card.Text>
-                            )}
-                        </Col>
-                        <Col md={4}>
-                            {event_time && (
-                                <Card.Text>
-                                    <i class="fa-solid fa-clock"></i>
-                                    Time: {event_time}
-                                </Card.Text>
-                            )}
-                        </Col>
-                    </Row>
-                </Container>
-                <div className={styles.PostBar}>
-                    {is_owner ? (
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={
-                                <Tooltip>You can't bookmark your own event.</Tooltip>
-                            }
-                        >
-                            <i class="fa-regular fa-bookmark"></i>
-                        </OverlayTrigger>
-                    ) : // If the event is already bookmarked, show a filled heart icon and allow the user to unbookmark
-                    bookmark_id ? (
-                        <span onClick={handleUnbookmark}>
-                            <i
-                                className={`fa-solid fa-bookmark ${styles.Heart}`}
-                            />
-                        </span>
-                    ) : currentUser ? (
-                        // If the event is not bookmarked and the user is logged in, show an outline heart icon and allow the user to bookmark
-                        <span onClick={handleBookmark}>
-                            <i
-                                className={`fa-regular fa-bookmark ${styles.HeartOutline}`}
-                            ></i>
-                        </span>
-                    ) : (
-                        // If the event is not bookmarked and the user is not logged in, show an outline heart icon with a tooltip prompting to log in
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={
-                                <Tooltip>Log in to bookmark events</Tooltip>
-                            }
-                        >
-                            <i className={`fa-regular fa-bookmark`} />
-                        </OverlayTrigger>
+                        </div>
+                    </Media>
+                </Card.Body>
+                <Link to={`events/${id}`}>
+                    <Card.Img src={image} alt={title} />
+                </Link>
+                <Card.Body>
+                    {title && (
+                        <Card.Title className="text-center">{title}</Card.Title>
                     )}
-                    {bookmarks_count}
-                    <Link to={`/events/${id}`}>
-                        <i className="far fa-comments" />
-                    </Link>
-                    {reviews_count}
-                </div>
-            </Card.Body>
-        </Card>
+                    <Container>
+                        <Row>
+                            <Col>
+                                {description && (
+                                    <Card.Text>{description}</Card.Text>
+                                )}
+                            </Col>
+                        </Row>
+                        <Row className="py-3">
+                            <Col md={4}>
+                                {location && (
+                                    <Card.Text>
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        Location: {location}
+                                    </Card.Text>
+                                )}
+                            </Col>
+                            <Col md={4}>
+                                {event_date && (
+                                    <Card.Text>
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        Date: {event_date}
+                                    </Card.Text>
+                                )}
+                            </Col>
+                            <Col md={4}>
+                                {event_time && (
+                                    <Card.Text>
+                                        <i class="fa-solid fa-clock"></i>
+                                        Time: {event_time}
+                                    </Card.Text>
+                                )}
+                            </Col>
+                        </Row>
+                    </Container>
+                    <div className={styles.PostBar}>
+                        {is_owner ? (
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={
+                                    <Tooltip>
+                                        You can't bookmark your own event.
+                                    </Tooltip>
+                                }
+                            >
+                                <i class="fa-regular fa-bookmark"></i>
+                            </OverlayTrigger>
+                        ) : // If the event is already bookmarked, show a filled heart icon and allow the user to unbookmark
+                        bookmark_id ? (
+                            <span onClick={handleUnbookmark}>
+                                <i
+                                    className={`fa-solid fa-bookmark ${styles.Heart}`}
+                                />
+                            </span>
+                        ) : currentUser ? (
+                            // If the event is not bookmarked and the user is logged in, show an outline heart icon and allow the user to bookmark
+                            <span onClick={handleBookmark}>
+                                <i
+                                    className={`fa-regular fa-bookmark ${styles.HeartOutline}`}
+                                ></i>
+                            </span>
+                        ) : (
+                            // If the event is not bookmarked and the user is not logged in, show an outline heart icon with a tooltip prompting to log in
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={
+                                    <Tooltip>Log in to bookmark events</Tooltip>
+                                }
+                            >
+                                <i className={`fa-regular fa-bookmark`} />
+                            </OverlayTrigger>
+                        )}
+                        {bookmarks_count}
+                        <Link to={`/events/${id}`}>
+                            <i className="far fa-comments" />
+                        </Link>
+                        {reviews_count}
+                    </div>
+                </Card.Body>
+            </Card>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to delete? Once delete the post will
+                    be gone, Forever!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        className={`${btnStyles.Button} ${btnStyles.Black}`}
+                        onClick={handleClose}
+                    >
+                        Close
+                    </Button>
+                    <Button
+                        className={`${btnStyles.Button} ${btnStyles.Black}`}
+                        onClick={handleDelete}
+                    >
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 };
 

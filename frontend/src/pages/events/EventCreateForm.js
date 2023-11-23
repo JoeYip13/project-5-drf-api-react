@@ -124,6 +124,7 @@ function EventCreateForm() {
                     name="event_date"
                     value={event_date}
                     onChange={handleChange}
+                    placeholder="eg. 2023/10/22"
                 />
             </Form.Group>
             {errors?.event_date?.map((message, idx) => (
