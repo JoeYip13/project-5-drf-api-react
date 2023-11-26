@@ -145,6 +145,7 @@ const SignUpForm = () => {
                     src={
                         "https://res.cloudinary.com/dcjkzptkn/image/upload/v1698678201/ultimate-m-car/BMW_M2_Models_G87_G42_Exterior_nmbsyq.jpg"
                     }
+                    alt="Image of a BMW"
                 />
             </Col>
         </Row>

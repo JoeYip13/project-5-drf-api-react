@@ -51,7 +51,7 @@ const NavBar = () => {
             setCurrentUser(null);
             removeTokenTimestamp();
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         } finally {
             // Delay for 3 seconds
             setTimeout(() => {
@@ -72,30 +72,34 @@ const NavBar = () => {
             className={styles.NavLink}
             activeClassName={styles.Active}
             to="/events/create"
+            aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus"></i>Add Event
+            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
         </NavLink>
     ) : isOnEventCreatePage ? (
         <NavLink
             className={styles.NavLink}
             activeClassName={styles.Active}
             to="/events/create"
+            aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus"></i>Add Event
+            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
         </NavLink>
     ) : isOnEventDetailPage ? (
         <NavLink
             className={styles.NavLink}
             activeClassName={styles.Active}
             to="/events/create"
+            aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus"></i>Add Event
+            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
         </NavLink>
     ) : (
         <NavLink
             className={styles.NavLink}
             activeClassName={styles.Active}
             to="/posts/create"
+            aria-label="Add post"
         >
             <i class="fa-solid fa-circle-plus"></i>Add Post
         </NavLink>
@@ -104,35 +108,43 @@ const NavBar = () => {
         <>
             <NavLink
                 className={styles.NavLink}
-                activeClassName={styles.Active}
-                to="/events"
+                to="/"
+                onClick={handleShow}
+                aria-label="Sign out"
             >
-                <i className="fa-regular fa-calendar-days"></i>Events
-            </NavLink>
-
-            <NavLink className={styles.NavLink} to="/" onClick={handleShow}>
                 <i class="fa-solid fa-right-from-bracket"></i>Sign out
             </NavLink>
-            <NavLink
-                className={styles.NavLink}
-                to={`/profiles/${currentUser?.profile_id}`}
+                <NavLink
+                    className={styles.NavLink}
+                    to={`/profiles/${currentUser?.profile_id}`}
+                    aria-label={`Link to ${currentUser?.username}'s profile`}
+                >
+                    <Avatar
+                        src={currentUser?.profile_image}
+                        text={currentUser?.username}
+                        height={50}
+                        aria-hidden="true"
+                    />
+                </NavLink>
+            <NavDropdown
+                id="basic-nav-dropdown"
+                title={
+                    <span className={styles.visuallyHidden}>
+                        Dropdown Arrow
+                    </span>
+                }
             >
-                <Avatar
-                    src={currentUser?.profile_image}
-                    text={currentUser?.username}
-                    height={50}
-                />
-            </NavLink>
-            <NavDropdown id="basic-nav-dropdown">
                 <NavDropdown.Item
                     onClick={() => {
                         setToggleNavBar(!toggleNavBar);
                     }}
+                    label="Toggle Navbar"
                 >
                     <NavLink
                         className={styles.NavLink}
                         activeClassName={styles.Active}
                         to="/liked"
+                        aria-label="Liked"
                     >
                         <i className="fa-solid fa-heart"></i>Liked
                     </NavLink>
@@ -146,6 +158,7 @@ const NavBar = () => {
                         className={styles.NavLink}
                         activeClassName={styles.Active}
                         to="/bookmarked"
+                        aria-label="Bookmarked"
                     >
                         <i className="fa-solid fa-bookmark"></i>
                         Bookmarked
@@ -161,6 +174,7 @@ const NavBar = () => {
                 activeClassName={styles.Active}
                 exact
                 to="/signup"
+                aria-label="Link to sign up"
             >
                 <i class="fa-solid fa-user-plus"></i>Sign Up
             </NavLink>
@@ -169,6 +183,7 @@ const NavBar = () => {
                 activeClassName={styles.Active}
                 exact
                 to="/signin"
+                aria-label="Link to sign in"
             >
                 <i class="fa-solid fa-right-to-bracket"></i>Sign In
             </NavLink>
@@ -184,10 +199,17 @@ const NavBar = () => {
                 fixed="top"
             >
                 <Container>
-                    <NavLink to="/">
-                        <Navbar.Brand className={styles.logo}>
+                    <NavLink to="/" aria-label="Link to home page">
+                        <Navbar.Brand
+                            className={styles.logo}
+                            aria-label="Link to home page"
+                        >
                             <span className={styles.logoText}>Ultimate</span>{" "}
-                            <img src={logo} alt="logo" height="45" />{" "}
+                            <img
+                                src={logo}
+                                alt="Ultimate M Car logo"
+                                height="45"
+                            />{" "}
                             <span className={styles.logoText}>Car</span>
                         </Navbar.Brand>
                     </NavLink>
@@ -203,8 +225,18 @@ const NavBar = () => {
                                 activeClassName={styles.Active}
                                 exact
                                 to="/"
+                                aria-label="Link to feed page"
                             >
                                 <i class="fa-solid fa-bars-staggered"></i>Feed
+                            </NavLink>
+                            <NavLink
+                                className={styles.NavLink}
+                                activeClassName={styles.Active}
+                                to="/events"
+                                aria-label="Link to events page"
+                            >
+                                <i className="fa-regular fa-calendar-days"></i>
+                                Events
                             </NavLink>
                             {currentUser ? loggedInIcons : loggedOutIcons}
                         </Nav>

@@ -62,7 +62,7 @@ function EventEditForm() {
                       })
                     : history.push("/");
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
 
@@ -99,13 +99,13 @@ function EventEditForm() {
 
         formData.append("event_date", event_date);
         formData.append("location", location);
-        console.log(Object.fromEntries(formData.entries()));
+        // console.log(Object.fromEntries(formData.entries()));
 
         try {
             await axiosReq.put(`/events/${id}/`, formData);
             history.push(`/events/${id}`);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             if (error.response?.status !== 401) {
                 setErrors(error.response?.data);
             }

@@ -80,7 +80,7 @@ function PostEditForm() {
                       })
                     : history.push("/");
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
 
@@ -123,13 +123,13 @@ function PostEditForm() {
         formData.append("location", location);
         formData.append("is_modified", is_modified);
         formData.append("colour", colour);
-        console.log(Object.fromEntries(formData.entries()));
+        // console.log(Object.fromEntries(formData.entries()));
 
         try {
             await axiosReq.put(`/posts/${id}/`, formData);
             history.push(`/posts/${id}`);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             if (error.response?.status !== 401) {
                 setErrors(error.response?.data);
             }

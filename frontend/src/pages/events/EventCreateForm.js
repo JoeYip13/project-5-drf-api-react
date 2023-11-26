@@ -76,9 +76,9 @@ function EventCreateForm() {
         try {
             const { data } = await axiosReq.post("/events/", formData);
             history.push(`/events/${data.id}`);
-            console.log(data);
+            // console.log(data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             if (error.response?.status !== 401) {
                 setErrors(error.response?.data);
             }

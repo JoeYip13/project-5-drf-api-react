@@ -58,7 +58,7 @@ const Event = (props) => {
             await axiosRes.delete(`/events/${id}/`);
             history.goBack();
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 
@@ -78,7 +78,7 @@ const Event = (props) => {
                 }),
             }));
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 
@@ -98,7 +98,7 @@ const Event = (props) => {
                 }),
             }));
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 
@@ -202,7 +202,10 @@ const Event = (props) => {
                             </OverlayTrigger>
                         )}
                         {bookmarks_count}
-                        <Link to={`/events/${id}`}>
+                        <Link
+                            to={`/events/${id}`}
+                            aria-label={`View comments for post with ID ${id}`}
+                        >
                             <i className="far fa-comments" />
                         </Link>
                         {reviews_count}

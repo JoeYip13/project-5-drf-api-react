@@ -61,7 +61,7 @@ const Post = (props) => {
             await axiosRes.delete(`/posts/${id}/`);
             history.goBack();
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 
@@ -81,7 +81,7 @@ const Post = (props) => {
                 }),
             }));
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 
@@ -101,7 +101,7 @@ const Post = (props) => {
                 }),
             }));
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 
@@ -228,8 +228,14 @@ const Post = (props) => {
                             </OverlayTrigger>
                         )}
                         {likes_count}
-                        <Link to={`/posts/${id}`}>
-                            <i className="far fa-comments" />
+                        <Link
+                            to={`/posts/${id}`}
+                            aria-label={`View comments for post with ID ${id}`}
+                        >
+                            <i
+                                className="far fa-comments"
+                                aria-label="Link to view comments"
+                            />
                         </Link>
                         {comments_count}
                     </div>

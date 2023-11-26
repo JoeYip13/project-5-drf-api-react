@@ -32,9 +32,9 @@ function PostPage() {
                 ]);
                 setPost({ results: [post] });
                 setComments(comments)
-                console.log(post);
+                // console.log(post);
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
 

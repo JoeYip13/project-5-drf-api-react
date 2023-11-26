@@ -143,6 +143,7 @@ function SignInForm() {
                     src={
                         "https://res.cloudinary.com/dcjkzptkn/image/upload/v1698690358/ultimate-m-car/BMW_M_Models_uouqzs.jpg"
                     }
+                    alt="Image of a BMW"
                 />
             </Col>
         </Row>

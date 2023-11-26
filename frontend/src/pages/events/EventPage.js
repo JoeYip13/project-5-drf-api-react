@@ -32,9 +32,9 @@ function EventPage() {
                 ]);
                 setEvent({ results: [event] });
                 setReviews(reviews)
-                console.log(event);
+                // console.log(event);
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
 

@@ -50,9 +50,9 @@ function ReviewCreateForm(props) {
         } catch (err) {
             if (err.response?.status !== 401) {
                 setErrors({ detail: err.response?.data.detail });
-                console.log(err.response);
+                // console.log(err.response);
             }
-            console.log(err);
+            // console.log(err);
         }
     };
 
