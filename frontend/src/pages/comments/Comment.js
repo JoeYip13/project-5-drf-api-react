@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import CommentEditForm from "./CommentEditForm";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 import styles from "../../styles/Comment.module.css";
+import btnStyles from "../../styles/Button.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
 
@@ -24,6 +27,10 @@ const Comment = (props) => {
     const [showEditForm, setShowEditForm] = useState(false);
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const handleDelete = async () => {
         try {
@@ -72,10 +79,32 @@ const Comment = (props) => {
                 {is_owner && !showEditForm && (
                     <MoreDropdown
                         handleEdit={() => setShowEditForm(true)}
-                        handleDelete={handleDelete}
+                        handleDelete={handleShow}
                     />
                 )}
             </Media>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to delete your comment?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        className={`${btnStyles.Button} ${btnStyles.Black}`}
+                        onClick={handleClose}
+                    >
+                        Close
+                    </Button>
+                    <Button
+                        className={`${btnStyles.Button} ${btnStyles.Black}`}
+                        onClick={handleDelete}
+                    >
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };
