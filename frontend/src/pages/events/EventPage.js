@@ -61,7 +61,12 @@ function EventPage() {
                     ) : null}
                     {reviews.results.length ? (
                         <InfiniteScroll
-                            children={reviews.results.map((review) => (
+                            dataLength={reviews.results.length}
+                            loader={<Asset spinner />}
+                            hasMore={!!reviews.next}
+                            next={() => fetchMoreData(reviews, setReviews)}
+                        >
+                            {reviews.results.map((review) => (
                                 <Review
                                     key={review.id}
                                     {...review}
@@ -69,11 +74,7 @@ function EventPage() {
                                     setReviews={setReviews}
                                 />
                             ))}
-                            dataLength={reviews.results.length}
-                            loader={<Asset spinner />}
-                            hasMore={!!reviews.next}
-                            next={() => fetchMoreData(reviews, setReviews)}
-                        />
+                        </InfiniteScroll>
                     ) : currentUser ? (
                         <span>No reviews yet, be the first to review!</span>
                     ) : (

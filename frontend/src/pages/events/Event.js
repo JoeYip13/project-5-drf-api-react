@@ -141,7 +141,7 @@ const Event = (props) => {
                             <Col md={4}>
                                 {location && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-location-dot"></i>
+                                        <i className="fa-solid fa-location-dot"></i>
                                         Location: {location}
                                     </Card.Text>
                                 )}
@@ -149,7 +149,7 @@ const Event = (props) => {
                             <Col md={4}>
                                 {event_date && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-calendar-days"></i>
+                                        <i className="fa-solid fa-calendar-days"></i>
                                         Date: {event_date}
                                     </Card.Text>
                                 )}
@@ -157,7 +157,7 @@ const Event = (props) => {
                             <Col md={4}>
                                 {event_time && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-clock"></i>
+                                        <i className="fa-solid fa-clock"></i>
                                         Time: {event_time}
                                     </Card.Text>
                                 )}
@@ -170,11 +170,11 @@ const Event = (props) => {
                                 placement="top"
                                 overlay={
                                     <Tooltip>
-                                        You can't bookmark your own event.
+                                        You can&apos;t bookmark your own event.
                                     </Tooltip>
                                 }
                             >
-                                <i class="fa-regular fa-bookmark"></i>
+                                <i className="fa-regular fa-bookmark"></i>
                             </OverlayTrigger>
                         ) : // If the event is already bookmarked, show a filled heart icon and allow the user to unbookmark
                         bookmark_id ? (

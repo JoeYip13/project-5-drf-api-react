@@ -142,7 +142,7 @@ const Post = (props) => {
                             <Col sm={6}>
                                 {model && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-certificate"></i>
+                                        <i className="fa-solid fa-certificate"></i>
                                         {model}
                                     </Card.Text>
                                 )}
@@ -150,7 +150,7 @@ const Post = (props) => {
                             <Col sm={6}>
                                 {year && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-calendar-check"></i>
+                                        <i className="fa-solid fa-calendar-check"></i>
                                         {year}
                                     </Card.Text>
                                 )}
@@ -160,7 +160,7 @@ const Post = (props) => {
                             <Col sm={6}>
                                 {bhp && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-gauge-high"></i>
+                                        <i className="fa-solid fa-gauge-high"></i>
                                         {bhp}
                                     </Card.Text>
                                 )}
@@ -168,7 +168,7 @@ const Post = (props) => {
                             <Col sm={6}>
                                 {location && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-location-dot"></i>
+                                        <i className="fa-solid fa-location-dot"></i>
                                         {location}
                                     </Card.Text>
                                 )}
@@ -178,7 +178,7 @@ const Post = (props) => {
                             <Col sm={6}>
                                 {is_modified && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-gear"></i>
+                                        <i className="fa-solid fa-gear"></i>
                                         {is_modified}
                                     </Card.Text>
                                 )}
@@ -186,7 +186,7 @@ const Post = (props) => {
                             <Col sm={6}>
                                 {colour && (
                                     <Card.Text>
-                                        <i class="fa-solid fa-palette"></i>
+                                        <i className="fa-solid fa-palette"></i>
                                         {colour}
                                     </Card.Text>
                                 )}
@@ -199,11 +199,11 @@ const Post = (props) => {
                                 placement="top"
                                 overlay={
                                     <Tooltip>
-                                        You can't like your own post.
+                                        You can&apos;t like your own post.
                                     </Tooltip>
                                 }
                             >
-                                <i class="fa-regular fa-heart"></i>
+                                <i className="fa-regular fa-heart"></i>
                             </OverlayTrigger>
                         ) : like_id ? (
                             <span onClick={handleUnlike}>

@@ -130,22 +130,23 @@ function ProfilePage() {
     const mainProfilePosts = (
         <>
             <hr />
-            <p className="text-center">{profile?.owner}'s posts</p>
+            <p className="text-center">{profile?.owner}&apos;s posts</p>
             <hr />
             {profilePosts.results.length ? (
                 <InfiniteScroll
-                    children={profilePosts.results.map((post) => (
+                    dataLength={profilePosts.results.length}
+                    loader={<Asset spinner />}
+                    hasMore={!!profilePosts.next}
+                    next={() => fetchMoreData(profilePosts, setProfilePosts)}
+                >
+                    {profilePosts.results.map((post) => (
                         <Post
                             key={post.id}
                             {...post}
                             setPosts={setProfilePosts}
                         />
                     ))}
-                    dataLength={profilePosts.results.length}
-                    loader={<Asset spinner />}
-                    hasMore={!!profilePosts.next}
-                    next={() => fetchMoreData(profilePosts, setProfilePosts)}
-                />
+                </InfiniteScroll>
             ) : (
                 <Asset
                     src={NoResults}
@@ -158,22 +159,23 @@ function ProfilePage() {
     const mainProfileEvents = (
         <>
             <hr />
-            <p className="text-center">{profile?.owner}'s Events</p>
+            <p className="text-center">{profile?.owner}&apos;s Events</p>
             <hr />
             {profileEvents.results.length ? (
                 <InfiniteScroll
-                    children={profileEvents.results.map((event) => (
+                    dataLength={profileEvents.results.length}
+                    loader={<Asset spinner />}
+                    hasMore={!!profileEvents.next}
+                    next={() => fetchMoreData(profileEvents, setProfileEvents)}
+                >
+                    {profileEvents.results.map((event) => (
                         <Event
                             key={event.id}
                             {...event}
                             setEvents={setProfileEvents}
                         />
                     ))}
-                    dataLength={profileEvents.results.length}
-                    loader={<Asset spinner />}
-                    hasMore={!!profileEvents.next}
-                    next={() => fetchMoreData(profileEvents, setProfileEvents)}
-                />
+                </InfiniteScroll>
             ) : (
                 <Asset
                     src={NoResults}

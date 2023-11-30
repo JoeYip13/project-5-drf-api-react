@@ -74,7 +74,7 @@ const NavBar = () => {
             to="/events/create"
             aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
+            <i className="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
         </NavLink>
     ) : isOnEventCreatePage ? (
         <NavLink
@@ -83,7 +83,7 @@ const NavBar = () => {
             to="/events/create"
             aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
+            <i className="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
         </NavLink>
     ) : isOnEventDetailPage ? (
         <NavLink
@@ -92,7 +92,7 @@ const NavBar = () => {
             to="/events/create"
             aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
+            <i className="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
         </NavLink>
     ) : (
         <NavLink
@@ -101,7 +101,7 @@ const NavBar = () => {
             to="/posts/create"
             aria-label="Add post"
         >
-            <i class="fa-solid fa-circle-plus"></i>Add Post
+            <i className="fa-solid fa-circle-plus"></i>Add Post
         </NavLink>
     );
     const loggedInIcons = (
@@ -112,7 +112,7 @@ const NavBar = () => {
                 onClick={handleShow}
                 aria-label="Sign out"
             >
-                <i class="fa-solid fa-right-from-bracket"></i>Sign out
+                <i className="fa-solid fa-right-from-bracket"></i>Sign out
             </NavLink>
                 <NavLink
                     className={styles.NavLink}
@@ -176,7 +176,7 @@ const NavBar = () => {
                 to="/signup"
                 aria-label="Link to sign up"
             >
-                <i class="fa-solid fa-user-plus"></i>Sign Up
+                <i className="fa-solid fa-user-plus"></i>Sign Up
             </NavLink>
             <NavLink
                 className={styles.NavLink}
@@ -185,7 +185,7 @@ const NavBar = () => {
                 to="/signin"
                 aria-label="Link to sign in"
             >
-                <i class="fa-solid fa-right-to-bracket"></i>Sign In
+                <i className="fa-solid fa-right-to-bracket"></i>Sign In
             </NavLink>
         </>
     );
@@ -227,7 +227,7 @@ const NavBar = () => {
                                 to="/"
                                 aria-label="Link to feed page"
                             >
-                                <i class="fa-solid fa-bars-staggered"></i>Feed
+                                <i className="fa-solid fa-bars-staggered"></i>Feed
                             </NavLink>
                             <NavLink
                                 className={styles.NavLink}
