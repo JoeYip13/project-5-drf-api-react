@@ -1,7 +1,7 @@
 .Post {
     background-color: #ffffff;
     border: 1px solid #dadadf;
-    border-radius: 2px;
+    border-radius: 10px;
     margin-bottom: 16px;
     text-align: center;
 }
@@ -12,7 +12,7 @@ h5 {
 }
 
 .Heart {
-    color: #f85032;
+    color: #e22718;
 }
 
 .Heart:hover {
@@ -20,5 +20,5 @@ h5 {
 }
 
 .HeartOutline:hover {
-    color: #f85032;
+    color: #e22718;
 }

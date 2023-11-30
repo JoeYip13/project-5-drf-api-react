@@ -10,8 +10,9 @@ const Avatar = ({ src, height = 45, text }) => {
                 height={height}
                 width={height}
                 alt="avatar"
+                aria-hidden="true"
             />{" "}
-            {text}
+            <span aria-label={text}>{text}</span>
         </span>
     );
 };

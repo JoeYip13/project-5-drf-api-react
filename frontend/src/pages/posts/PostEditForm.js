@@ -80,7 +80,7 @@ function PostEditForm() {
                       })
                     : history.push("/");
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
 
@@ -123,13 +123,13 @@ function PostEditForm() {
         formData.append("location", location);
         formData.append("is_modified", is_modified);
         formData.append("colour", colour);
-        console.log(Object.fromEntries(formData.entries()));
+        // console.log(Object.fromEntries(formData.entries()));
 
         try {
             await axiosReq.put(`/posts/${id}/`, formData);
             history.push(`/posts/${id}`);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             if (error.response?.status !== 401) {
                 setErrors(error.response?.data);
             }
@@ -219,13 +219,13 @@ function PostEditForm() {
             </Form.Group>
 
             <Button
-                className={`${btnStyles.Button} ${btnStyles.Bright}`}
+                className={`${btnStyles.Button} ${btnStyles.Black}`}
                 onClick={() => history.goBack()}
             >
                 Cancel
             </Button>
             <Button
-                className={`${btnStyles.Button} ${btnStyles.Bright}`}
+                className={`${btnStyles.Button} ${btnStyles.Black}`}
                 type="submit"
             >
                 Save
@@ -250,7 +250,7 @@ function PostEditForm() {
                             </figure>
                             <div>
                                 <Form.Label
-                                    className={`${btnStyles.Button} ${btnStyles.Bright} btn`}
+                                    className={`${btnStyles.Button} ${btnStyles.Black} btn`}
                                     htmlFor="image-upload"
                                 >
                                     Change the image

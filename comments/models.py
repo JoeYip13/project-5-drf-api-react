@@ -5,7 +5,7 @@ from posts.models import Post
 
 class Comment(models.Model):
     """
-    Comment model, related to User and Post
+    Comment model, related to User and Post and event
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

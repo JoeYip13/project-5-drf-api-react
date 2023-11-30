@@ -34,23 +34,17 @@
 
 .BlueOutline:hover,
 .Bright:hover {
-    background-color: #00C69E;
+    background-color: #00528E;
     color: #ffffff;
 }
 
-.Black,
-.BlackOutline:hover {
-    background-color: #242a3d;
-    color: aliceblue;
+.Black {
+    background-color: #0d0d0d;
+    color: #ffffff;
 }
 
 .Black:hover,
 .BlackOutline {
-    background-color: aliceblue;
-    color: #242a3d;
-}
-
-.Bright {
     background-color: #00528E;
     color: #ffffff;
 }

@@ -8,10 +8,33 @@
     font-size: 2.2rem;
 }
 
+.logoText {
+    display: none
+}
+
 .NavLink {
     padding: 5px;
 }
 
 .Active i {
     color: #181c27;
+}
+
+/* For screen readers */
+.visuallyHidden {
+    position: absolute;/*Moves the element out of the flow of the document, so it doesn't affect the layout.*/
+    width: 1px; /* Sets the width and height of the element to 1 pixel. This makes it effectively invisible. */
+    height: 1px;
+    margin: -1px; /* Provides a negative margin to further hide the element. */
+    padding: 0; /* Removes any padding that might affect the size of the element. */
+    overflow: hidden; /* Ensures that any content inside the element is hidden. */
+    clip: rect(0, 0, 0, 0); /* Clips the element to a rectangle with zero dimensions, essentially hiding it. */
+    border: 0; /* Removes any border that might be present. */
+    white-space: nowrap; /* Ensure content doesn't wrap */
+}
+
+@media (min-width: 768px) {
+    .logoText {
+        display: inline-block;
+    }
 }

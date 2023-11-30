@@ -25,6 +25,8 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
 
+import CustomAlert from "../../components/CustomAlert";
+
 function SignInForm() {
     const setCurrentUser = useSetCurrentUser();
     useRedirect("loggedIn");
@@ -33,13 +35,17 @@ function SignInForm() {
         username: "",
         password: "",
     });
+
     const { username, password } = signInData;
-
     const [errors, setErrors] = useState({});
-
+    const [showAlert, setShowAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrors({});
+        setLoading(true); // Set loading to true
         try {
             const { data } = await axios.post(
                 "/dj-rest-auth/login/",
@@ -49,7 +55,14 @@ function SignInForm() {
             setTokenTimestamp(data);
             history.goBack();
         } catch (err) {
-            setErrors(err.response?.data);
+            if (err.response?.status === 400) {
+                setShowAlert(true); // Set the state to show the Alert
+            } else {
+                // Handle other errors (e.g., network issues)
+                setErrors(err.response?.data);
+            }
+        } finally {
+            setLoading(false); // Reset loading state
         }
     };
 
@@ -98,11 +111,20 @@ function SignInForm() {
                                 {message}
                             </Alert>
                         ))}
+                        {showAlert && (
+                            <CustomAlert
+                                variant="warning"
+                                onClose={() => setShowAlert(false)}
+                            >
+                                Invalid username or password. Please try again.
+                            </CustomAlert>
+                        )}
                         <Button
-                            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
+                            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Black}`}
                             type="submit"
+                            disabled={loading} // Disable the button when loading
                         >
-                            Sign In
+                            {loading ? "Signing In..." : "Sign In"}
                         </Button>
                     </Form>
                 </Container>
@@ -121,6 +143,7 @@ function SignInForm() {
                     src={
                         "https://res.cloudinary.com/dcjkzptkn/image/upload/v1698690358/ultimate-m-car/BMW_M_Models_uouqzs.jpg"
                     }
+                    alt="Image of a BMW"
                 />
             </Col>
         </Row>

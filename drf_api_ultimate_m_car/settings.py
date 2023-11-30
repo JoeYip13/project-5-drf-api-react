@@ -55,6 +55,9 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api_ultimate_m_car.serializers.CurrentUserSerializer'
 }
 
+# Format default date input for Event Model
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -96,6 +99,9 @@ INSTALLED_APPS = [
     'comments',
     'likes',
     'followers',
+    'events',
+    'bookmarks',
+    'reviews',
 ]
 
 SITE_ID = 1
