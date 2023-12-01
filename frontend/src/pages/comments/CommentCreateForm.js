@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Alert from "react-bootstrap/Alert";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
@@ -11,13 +12,21 @@ import { axiosRes } from "../../api/axiosDefaults";
 function CommentCreateForm(props) {
     const { post, setPost, setComments, profileImage, profile_id } = props;
     const [content, setContent] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleChange = (event) => {
         setContent(event.target.value);
+        // Clear the error message when the user starts typing
+        setErrorMessage("");
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        // Check if the content is empty or contains only whitespace
+        if (!content.trim()) {
+            setErrorMessage("Please enter a comment before posting.");
+            return;
+        }
         try {
             const { data } = await axiosRes.post("/comments/", {
                 content,
@@ -58,6 +67,11 @@ function CommentCreateForm(props) {
                     />
                 </InputGroup>
             </Form.Group>
+            {errorMessage && (
+                    <Alert variant="danger" className="mt-2">
+                        {errorMessage}
+                    </Alert>
+                )}
             <button
                 className={`${styles.Button} btn d-block ml-auto`}
                 disabled={!content.trim()}
