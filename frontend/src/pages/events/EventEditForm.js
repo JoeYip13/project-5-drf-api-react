@@ -64,7 +64,7 @@ function EventEditForm() {
                           location,
                           image,
                       })
-                    : history.push("/");
+                    : history.push("events/");
             } catch (error) {
                 // console.log(error);
             }

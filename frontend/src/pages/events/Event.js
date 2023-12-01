@@ -3,6 +3,7 @@ import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 // Bootstrap components
+import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Media from "react-bootstrap/Media";
@@ -44,10 +45,15 @@ const Event = (props) => {
     const is_owner = currentUser?.username === owner;
     const history = useHistory();
 
+    // Modal
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    // Alert for delete post
+    const [showAlert, setShowAlert] = useState(false);
+    const handleCloseAlert = () => setShowAlert(false);
+    const handleShowAlert = () => setShowAlert(true);
 
     const handleEdit = () => {
         history.push(`/events/${id}/edit`);
@@ -56,7 +62,12 @@ const Event = (props) => {
     const handleDelete = async () => {
         try {
             await axiosRes.delete(`/events/${id}/`);
-            history.goBack();
+            handleClose();
+            handleShowAlert(); // Show alert on successful deletion
+
+            setTimeout(() => {
+                history.push("/events");
+            }, 5000);
         } catch (err) {
             // console.log(err);
         }
@@ -104,10 +115,31 @@ const Event = (props) => {
 
     return (
         <>
+            {/* React Bootstrap Alert */}
+            <Alert
+                show={showAlert}
+                variant="success"
+                onClose={handleCloseAlert}
+                dismissible
+            >
+                <Alert.Heading>Post Deleted Successfully!</Alert.Heading>
+                <p>The post has been permanently removed.</p>
+                <div className="d-flex justify-content-end">
+                    <Button
+                        onClick={handleCloseAlert}
+                        variant="outline-success"
+                    >
+                        Close
+                    </Button>
+                </div>
+            </Alert>
             <Card className={styles.Post}>
                 <Card.Body>
                     <Media className="align-items-center justify-content-between">
-                        <Link to={`/profiles/${profile_id}`}>
+                        <Link
+                            to={`/profiles/${profile_id}`}
+                            aria-label={`Link to ${currentUser?.username}'s profile`}
+                        >
                             <Avatar src={profile_image} height={55} />
                             {owner}
                         </Link>
@@ -218,15 +250,15 @@ const Event = (props) => {
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Are you sure you want to delete? Once delete the post will
-                    be gone, Forever!
+                    Are you certain you want to delete? Once confirmed, the event
+                    will be permanently removed.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
                         className={`${btnStyles.Button} ${btnStyles.Black}`}
                         onClick={handleClose}
                     >
-                        Close
+                        Cancel
                     </Button>
                     <Button
                         className={`${btnStyles.Button} ${btnStyles.Black}`}
