@@ -14,7 +14,6 @@ This is the Read Me Testing for the Frontend. Click [here](https://github.com/Jo
   - [ESLint Validator](#eslint-validator)
   - [Responsive](#responsive)
   - [PageSpeed Insights](#pagespeed-insights)
-  - [Lighthouse Testing](#lighthouse-testing)
   - [Manual Testing](#manual-testing)
     - [Navigation Bar](#navigation-bar)
     - [Feed Page](#feed-page)
@@ -225,27 +224,34 @@ To resolve the "Component definition is missing display name react/display-name"
 ## PageSpeed Insights
 
 <details>
-    <summary>Page 1</summary>
+    <summary>Feed Page</summary>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701516467/ultimate-m-car/README/pagespeed/feed_bt2is5.png"
+        alt="Ultimate M Car PageSpeed Insight">
 </details>
 <details>
-    <summary>Page 2</summary>
+    <summary>Post Page</summary>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701516471/ultimate-m-car/README/pagespeed/post-id_qttgyo.png"
+        alt="Ultimate M Car PageSpeed Insight">
 </details>
 <details>
-    <summary>Page 3</summary>
-</details>
-
----
-
-## Lighthouse Testing
-
-<details>
-    <summary>Page 1</summary>
+    <summary>Events Page</summary>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701516463/ultimate-m-car/README/pagespeed/events-pk_d3nffr.png"
+        alt="Ultimate M Car PageSpeed Insight">
 </details>
 <details>
-    <summary>Page 2</summary>
+    <summary>Event Page</summary>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701516463/ultimate-m-car/README/pagespeed/events-pk_d3nffr.png"
+        alt="Ultimate M Car PageSpeed Insight">
 </details>
 <details>
-    <summary>Page 3</summary>
+    <summary>Sign Up Page</summary>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701516469/ultimate-m-car/README/pagespeed/signup_vmgdsz.png"
+        alt="Ultimate M Car PageSpeed Insight">
+</details>
+<details>
+    <summary>Sign In Page</summary>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701516505/ultimate-m-car/README/pagespeed/signin_polocd.png"
+        alt="Ultimate M Car PageSpeed Insight">
 </details>
 
 ---

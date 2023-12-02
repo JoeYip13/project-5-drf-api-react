@@ -29,6 +29,13 @@
   - [Wireframes](#wireframes)
   - [Typography](#typography)
   - [Colour Scheme](#colour-scheme)
+  - [Reuable Components](#reuable-components)
+      - [`Avatar.js`](#avatarjs)
+      - [`Asset.js`](#assetjs)
+      - [`CustomAlert.js`](#customalertjs)
+      - [`MoreDropdown.js`](#moredropdownjs)
+      - [`NavBar.js`](#navbarjs)
+      - [`NotFound.js`](#notfoundjs)
   - [Features](#features)
     - [Navigation Bar](#navigation-bar)
     - [Feed Page](#feed-page)
@@ -55,7 +62,7 @@
       - [4. Preparing React to connect to the Django API](#4-preparing-react-to-connect-to-the-django-api)
       - [5. Deployment of both application](#5-deployment-of-both-application)
   - [Credits](#credits)
-  - [Acknowledgments](#acknowledgments)
+  - [Acknowledgements:](#acknowledgements)
 
 ---
 ## UX Design
@@ -263,6 +270,34 @@ In selecting colors, my goal was to elevate the car posts to resemble an art gal
 [Table of Contents](#table-of-contents)
 
 ---
+
+## Reuable Components
+
+A number of reusable React components were created with the intention of reducing code duplication.
+
+#### `Avatar.js`
+
+The Avatar Component in the Ultimate M Car project is a reusable UI element designed to display user profile pictures or any other relevant images in a visually appealing and consistent manner. This component is utilized across various sections of the project, such as NavBar, Posts, Comments, Events, and Reviews.
+
+#### `Asset.js`
+
+The Asset component is used to render the loading spinner utilised throughout the app.
+
+#### `CustomAlert.js`
+
+The Custom Alert component is used in the Sign In Form.
+
+#### `MoreDropdown.js`
+
+The MoreDropdown component is used to handle the Edit and Delete in Posts, Events, Comments, Reviews. This also is used for the Profile Edit Dropdown. Where the user can edit their profile, change username and password. 
+
+#### `NavBar.js`
+
+NavBar component is used in the App.js file which displays the NavBar throughout all the webpages.
+
+#### `NotFound.js`
+
+NotFound component is used to render a Not Found page.
 
 ## Features
 
@@ -596,7 +631,8 @@ The search bar on the website functions as a versatile filtering tool for posts,
 ---
 
 ## Testing
-Testing can be found [here]()
+
+Testing can be found [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/testing/TESTING_Front_End.md)
 
 [Table of Contents](#table-of-contents)
 
@@ -720,10 +756,29 @@ Because the React part of the project contains static files, we need to store al
 
 ## Credits
 
-[Table of Contents](#table-of-contents)
+- Code Institute [Django Rest Framework](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+DRF+2021_T1/courseware/f775d54df4da44d18309888b3fe884f7/bc5fbada70104d489aa0363a03d8bda8/) Walkthrough project.
+- Code Institute [Moments](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+RA101+2021_T3/courseware/70a8c55db0504bbdb5bcc3bfcf580080/953cd4e5015f483bb05263db3e740e19/) Walkthrough project. I also used this project tutorial to start my website.
+- My Tutor from project 1-4 [Rory Patrick Sheridan](https://github.com/Ri-Dearg) For all the project support I needed throughout my learning. His knowledge and advice has been really supportive.
+- My Tutor from project 5. - Jubril Akolade
+- Code Institute [Tutor Support Team](https://learn.codeinstitute.net/ci_support/diplomainfullstacksoftwarecommoncurriculum/tutor) The amazing tutor support team for their support.
+- Code Institute Slack Community
+- Corey Shafer on YouTube [Django Tutorials](https://www.youtube.com/watch?v=UmljXZIypDc&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p)
+- Codemy on YouTube [Create a simple Django Blog](https://www.youtube.com/watch?v=B40bteAMM_M&list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
+- Django Docs [Django Github](https://github.com/django/django)
+- Bootstrap 5.1.3 Docs [Bootstrap 5.1.3](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+- React-Bootstrap Docs [React-Bootstrap 4.6](https://react-bootstrap-v4.netlify.app/)
 
 ---
 
-## Acknowledgments
+## Acknowledgements:
+
+- I like to thank Code Institute for the project walkthroughs.
+- My mentor Rory Patrick Sheridan for his exceptional level of support and guidance throughout my learning.
+- My mentor Jubril Akolade for his words of wisdom and help and support.
+- Additionally, I would like to thank Code Institute Tutor Support Team for their amazing support.
+- The Code Institute Slack Community channel. My family for their support through my learning.
+- Corey Shafer and Codemy YouTube tutorials.
 
 [Table of Contents](#table-of-contents)
+
+---
