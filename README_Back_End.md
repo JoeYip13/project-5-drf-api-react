@@ -10,6 +10,22 @@ Welcome to the backend of Ultimate M Car, a Django Rest Framework-based project 
     <figcaption>Welcome to the backend of Ultimate M Car</figcaption>
 </figure>
 
+To establish a connection between my backend API and frontend, I followed the Code Institute guide,[here](https://code-institute-students.github.io/advfe-unified-workspace/creating-an-app-in-a-workspace/00-creating-an-app-in-a-workspace) which details the creation of a new React app within an existing Django Rest Framework (DRF) workspace. The guide can be found here.
+
+During this process, I incorporated two URL patterns. This arrangement allows me to toggle between viewing the backend and the API. When viewing the backend, I commented out the API URLs and imported the root_route from the views.py file. Consequently, in the deployed site, accessing the API requires navigating to the admin site. However, for testing purposes, as outlined in the readme, I utilized the Django Rest Framework root_view to assess the integration.
+
+<figure align="center">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701511522/ultimate-m-car/README/backend/urls_backend_bavonl.png"
+        alt="Welcome Ultimate M Car Website">
+    <figcaption>Urls Pattern</figcaption>
+</figure>
+
+<figure align="center">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701511524/ultimate-m-car/README/backend/urls_backend_view_yfz8gd.png"
+        alt="Welcome Ultimate M Car Website">
+    <figcaption>Urls Pattern</figcaption>
+</figure>
+
 ## Table Of Contents
 
 - [Ultimate M Car API](#ultimate-m-car-api)
