@@ -1,29 +1,494 @@
+# Ultimate M Car API
+
+## Introduction
+
+Welcome to the backend of Ultimate M Car, a Django Rest Framework-based project for managing posts, comments, likes, events, bookmarked events, review events and user profiles.
+
+<figure align="center">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701511519/ultimate-m-car/README/backend/welcome_zgbqpr.png"
+        alt="Welcome Ultimate M Car Website">
+    <figcaption>Welcome to the backend of Ultimate M Car</figcaption>
+</figure>
+
 ## Table Of Contents
 
-1. <details open>
-    <summary><a href='#ux-design'>UX Design</a></summary>
-    </details>
-2. [User Stories](#user-stories)
-3. [Wireframes](#wireframes)
-4. [Agile Metodology](#agile-methodology)
-5. [Typography](#typography)
-6. [Colour Scheme](#colour-scheme)
-7. [Database Diagram](#database-diagram)
-8. <details open>
-    <summary><a href="#features">Features</a></summary>
+- [Ultimate M Car API](#ultimate-m-car-api)
+  - [Introduction](#introduction)
+  - [Table Of Contents](#table-of-contents)
+  - [Database Diagram](#database-diagram)
+  - [API Endpopints](#api-endpopints)
+    - [Posts](#posts)
+    - [Comments](#comments)
+    - [Likes](#likes)
+    - [Events](#events)
+    - [Bookmark Events](#bookmark-events)
+    - [Review Events](#review-events)
+    - [Profiles](#profiles)
+    - [Followers](#followers)
+  - [Data Models](#data-models)
+    - [Posts Data Model](#posts-data-model)
+    - [Comments Data Model](#comments-data-model)
+    - [Likes Data Model](#likes-data-model)
+    - [Events Data Model](#events-data-model)
+    - [Reviews Data Model](#reviews-data-model)
+    - [Bookmarks Data Model](#bookmarks-data-model)
+    - [Profiles Data Model](#profiles-data-model)
+    - [Followers Data Model](#followers-data-model)
+  - [Technologies Used](#technologies-used)
+  - [Testing](#testing)
+  - [Deployment and Initial Setup](#deployment-and-initial-setup)
+    - [Initial Setup](#initial-setup)
+      - [1.Creating Respository on Github](#1creating-respository-on-github)
+      - [2. Register with Cloudinary](#2-register-with-cloudinary)
+      - [3. Installing Django and configure project to use Cloudinary](#3-installing-django-and-configure-project-to-use-cloudinary)
+      - [4. Prepare our environment and settings.py file](#4-prepare-our-environment-and-settingspy-file)
+      - [5. Installing Django Rest Framework](#5-installing-django-rest-framework)
+      - [6. Installing Django Rest Auth](#6-installing-django-rest-auth)
+      - [7. Create a database On ElephantSQL](#7-create-a-database-on-elephantsql)
+      - [8. Creating app on Heroku](#8-creating-app-on-heroku)
+      - [9. Attach the Database](#9-attach-the-database)
+      - [10. Connect ElephantSQL database to project](#10-connect-elephantsql-database-to-project)
+      - [11. Preparing for deployement to Heroku](#11-preparing-for-deployement-to-heroku)
+      - [12. Deploying to Heroku](#12-deploying-to-heroku)
 
-    - [](#)
-    - [](#)
-    - [](#)
-    - [](#)
-    </details>
-9. [Future Features](#future-features)
-10. [Technologies Used](#technologies-used)
-11. [Testing](#testing)
-12. [Deployment and Initial Setup](#deployment-and-initial-setup)
-13. [Final Deployment](#final-deployemt)
-14. [Credits](#credits)
-15. [Acknowledgments](#acknowledgements)
+---
+
+## Database Diagram
+
+Database diagram created using LucidCharts
+<figure align="center">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503514/ultimate-m-car/README/database_schema_ikkhq3.png"
+        alt="Database diagram for the Ultimate M Car Website">
+    <figcaption>Database Diagram</figcaption>
+</figure>
+
+---
+
+## API Endpopints
+
+### Posts
+
+- GET /api/posts/: Retrieve all posts.
+- POST /api/posts/create: Create a new post.
+- GET /api/posts/<post_id>/: Retrieve a specific post.
+- PUT /api/posts/<post_id>/: Update a specific post.
+- DELETE /api/posts/<post_id>/: Delete a specific post.
+
+<details>
+<summary>Posts API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503588/ultimate-m-car/README/backend/posts/post-list-view_tx67k3.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503589/ultimate-m-car/README/backend/posts/post-list-view-post_ut2rrv.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503587/ultimate-m-car/README/backend/posts/post-detail-view-post-pk_pxbe0i.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503588/ultimate-m-car/README/backend/posts/post-detail-view-post-pk-put_blmjoi.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503587/ultimate-m-car/README/backend/posts/post-detail-view-post-pk-delete_hxj5ba.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503588/ultimate-m-car/README/backend/posts/post-detail-view-post-pk-deleted_zpzkma.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503590/ultimate-m-car/README/backend/posts/posts_fxbfgr.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701503589/ultimate-m-car/README/backend/posts/posts-pk_y65zdn.png"
+        alt="Ultimate M Car API">
+        <figcaption>Posts API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+### Comments
+
+- GET /api/comments/: Retrieve all comments.
+- POST /api/comments/: Create a new comment.
+- GET /api/comments/<comment_id>/: Retrieve a specific comment.
+- PUT /api/comments/<comment_id>/: Update a specific comment.
+- DELETE /api/comments/<comment_id>/: Delete a specific comment.
+
+<details>
+<summary>Comments API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504322/ultimate-m-car/README/backend/comments/comment-list-view_qfdiey.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504322/ultimate-m-car/README/backend/comments/comment-list-view-post_z4v7zz.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504321/ultimate-m-car/README/backend/comments/comment-detail-view-pk_txt4ox.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504321/ultimate-m-car/README/backend/comments/comment-detail-view-pk-put_dd3clg.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504320/ultimate-m-car/README/backend/comments/comment-detail-view-pk-delete_ugfzh1.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504324/ultimate-m-car/README/backend/comments/comments_lsewmx.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504323/ultimate-m-car/README/backend/comments/comments-pk_xlsvjq.png"
+        alt="Ultimate M Car API">
+        <figcaption>Comments API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+### Likes
+
+- POST /api/likes/: Like a post.
+- DELETE /api/likes/<like_id>/: Unlike a post.
+
+<details>
+<summary>Likes API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504516/ultimate-m-car/README/backend/likes/likes-list-view_wp05xu.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504517/ultimate-m-car/README/backend/likes/likes-list-view-post_ybgqby.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504514/ultimate-m-car/README/backend/likes/likes-detail-view-pk_e7kyjn.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504516/ultimate-m-car/README/backend/likes/likes-detail-view-pk-delete_wqpn2p.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504515/ultimate-m-car/README/backend/likes/likes_vmamtn.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504518/ultimate-m-car/README/backend/likes/likes-pk_ahqyg3.png"
+        alt="Ultimate M Car API">
+        <figcaption>Likes API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+### Events
+
+- GET /api/events/: Retrieve all events.
+- POST /api/events/: Create a new event.
+- GET /api/events/<events_id>/: Retrieve a specific event.
+- PUT /api/events/<events_id>/: Update a specific event.
+- DELETE /api/events/<events_id>/: Delete a specific event.
+
+<details>
+<summary>Events API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504584/ultimate-m-car/README/backend/events/events-list-view_i3gid0.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504585/ultimate-m-car/README/backend/events/events-list-view-create_nexh4h.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504580/ultimate-m-car/README/backend/events/events-detail-view-create_a6yki0.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504583/ultimate-m-car/README/backend/events/events-detail-view-put_yqwup5.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504581/ultimate-m-car/README/backend/events/events-detail-view-delete_pamyjk.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504582/ultimate-m-car/README/backend/events/events_n2gfap.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504583/ultimate-m-car/README/backend/events/events-id_fap0ae.png"
+        alt="Ultimate M Car API">
+        <figcaption>Events API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+### Bookmark Events
+
+- POST /api/bookmarks/: Bookmark an event.
+- DELETE /api/bookmarks/<bookmarks_id>/: Remove a bookmark from an event.
+
+<details>
+<summary>Bookmarks API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504718/ultimate-m-car/README/backend/bookmarks/bookmarks-list-view_dq6soi.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504716/ultimate-m-car/README/backend/bookmarks/bookmarks-detail-view-pk_bxrhnb.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504717/ultimate-m-car/README/backend/bookmarks/bookmarks-detail-view-pk-delete_swd3xv.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504835/ultimate-m-car/README/backend/bookmarks/bookmarks_ltjkfs.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504837/ultimate-m-car/README/backend/bookmarks/bookmarks-pk_yyes0z.png"
+        alt="Ultimate M Car API">
+        <figcaption>Bookmarks API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+### Review Events
+
+- POST /api/reviews/: Submit a review for an event.
+- GET /api/reviews/<reviews_id>/: Retrieve a specific review.
+- PUT /api/reviews/<reviews_id>/: Update a specific review.
+- DELETE /api/reviews/<reviews_id>/: Delete a specific review.
+
+<details>
+<summary>Reviews API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504881/ultimate-m-car/README/backend/reviews/reviews-list-view_tjupjo.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504880/ultimate-m-car/README/backend/reviews/reviews-list-view-post-again_lh1fim.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504879/ultimate-m-car/README/backend/reviews/reviews-detail-view-pk-put_nwa4js.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504877/ultimate-m-car/README/backend/reviews/reviews-detail-view-pk-delete_xbugdb.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504926/ultimate-m-car/README/backend/reviews/reviews_gha64j.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504928/ultimate-m-car/README/backend/reviews/reviews-pk_xdwyyp.png"
+        alt="Ultimate M Car API">
+        <figcaption>Reviews API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+### Profiles
+
+- GET /api/profiles/: Retrieve user profiles.
+- GET /api/profiles/<profiles_id>/: Retrieve a specific user profile.
+- PUT /api/profiles/<profiles_id>/: Update a specific user profile.
+
+<details>
+<summary>Profiles API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505011/ultimate-m-car/README/backend/profiles/profiles-list-view_ueomxh.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505009/ultimate-m-car/README/backend/profiles/profiles-list-detailview_kidaxh.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505151/ultimate-m-car/README/backend/profiles/profiles-detail-view-put_iypivs.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505013/ultimate-m-car/README/backend/profiles/profiles_pwmsml.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505010/ultimate-m-car/README/backend/profiles/profiles-pk_aptece.png"
+        alt="Ultimate M Car API">
+        <figcaption>Profiles API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+### Followers
+
+- GET /api/followers/: Retrieve user profiles.
+- GET /api/followers/<followers_id>/: Retrieve a specific user profile.
+- PUT /api/followers/<followers_id>/: Update a specific user profile.
+
+<details>
+<summary>Followers API</summary>
+<figure>
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505213/ultimate-m-car/README/backend/followers/followers-list-view_av5xo6.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505210/ultimate-m-car/README/backend/followers/followed_d6rso0.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505212/ultimate-m-car/README/backend/followers/followed-delete_ibldpc.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505259/ultimate-m-car/README/backend/followers/followers_knnacd.png"
+        alt="Ultimate M Car API">
+    <img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701505261/ultimate-m-car/README/backend/followers/followers-pk_nyj8yq.png"
+        alt="Ultimate M Car API">
+        <figcaption>Followers API</figcaption>
+</figure>
+</details>
+
+[Table of Contents](#table-of-contents)
+
+---
+
+## Data Models
+
+### Posts Data Model
+
+Posts Data Modal takes the following fields
+
+- owner
+- created_at
+- updated_at
+- title
+- content
+- model
+- year
+- bhp (Brake Horsepower)
+- location
+- is_modified
+- colour
+
+In addition to the fields generated in the Posts model through the serializer, I have included the following attributes in the JSON data:
+
+- is_owner
+- profile_id
+- profile_image
+- like_id
+- likes_count
+- comments_count
+
+I've established a sorting mechanism for the posts list, utilizing the parameters:
+
+- likes_count
+- comments_count
+- likes_created_at
+A search feature has been implemented, allowing users to search the entire posts list based on the post owner or various post attributes such as title, model, year, bhp, location, is_modified, and colour.
+
+[Table of Contents](#table-of-contents)
+
+### Comments Data Model
+
+Comments Data Modal takes the following fields
+
+- owner
+- post
+- created_at
+- updated_at
+- content
+
+In addition to the fields generated in the Comments model through the serializer, I have included the following attributes in the JSON data:
+
+- is_owner
+- profile_id
+- profile_image
+- like_id
+- likes_count
+- comments_count
+
+[Table of Contents](#table-of-contents)
+
+### Likes Data Model
+
+Likes Data Modal takes the following fields
+
+- owner
+- post
+- created_at
+
+Upon user login, a form becomes visible in a form of a Heart Icon, allowing them to create a new like. The user can choose the post they wish to like, establishing a connection between the like and the selected post.
+
+If a user attempts to like the same post twice, an error message is displayed, notifying them that they have already liked the selected post. The duplicate like is prevented from being created. Similarly, if a user tries to like a post they created, an error message informs them that liking their own post is not allowed, and the like is not created.
+
+<img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701507238/ultimate-m-car/README/backend/likes/dublicate-error_wl3o5h.png"
+        alt="Ultimate M Car API">
+
+After logging in, when a user examines the details of a like they created, additional functionality for deleting the like becomes available.
+
+[Table of Contents](#table-of-contents)
+
+### Events Data Model
+
+Events Data Modal takes the following fields
+
+- owner
+- created_at
+- updated_at
+- title
+- description
+- location
+- event_date
+- event_time
+
+In addition to the fields generated in the Events model through the serializer, I have included the following attributes in the JSON data:
+
+- is_owner
+- profile_id
+- profile_image
+- bookmark_id
+- bookmarks_count
+- reviews_count
+
+I've implemented a search function that enables users to search the entire events list based on the event owner, title, event date, and location. Additionally, I've configured ordering for the events list and selected the following criteria for sorting the events:
+
+- reviews_count
+- bookmarks_count
+- bookmarks_created_at
+
+[Table of Contents](#table-of-contents)
+
+### Reviews Data Model
+
+Reviews Data Modal takes the following fields
+
+- owner
+- event
+- created_at
+- updated_at
+- rating
+- review
+
+In addition to the fields generated in the Reviews model through the serializer, I have included the following attributes in the JSON data:
+
+- is_owner
+- profile_id
+- profile_image
+- created_at
+- updated_at
+
+Upon user login, a form becomes visible for creating a new review. The user can select the event they wish to review, and to successfully post the review, they must enter review text and select a rating. The rating is handled in the front end of the application.
+
+If a user attempts to review the same event twice, an error message is displayed, indicating that they have already reviewed the selected event. The system prevents the creation of duplicate reviews. Similarly, if a user tries to review their own event, they receive an error message stating that reviewing their own event is not allowed, and the review is not created.
+
+Once logged in, if a user examines the details of a review they created, additional functionality for editing and deleting becomes available. A pre-filled form is provided for editing the comment, and a delete button is available to remove the comment from the API.
+
+<img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701504880/ultimate-m-car/README/backend/reviews/reviews-list-view-post-again_lh1fim.png"
+        alt="Ultimate M Car API">
+
+[Table of Contents](#table-of-contents)
+
+### Bookmarks Data Model
+
+Bookmarks Data Modal takes the following fields
+
+- owner
+- event
+- created_at
+
+Upon user login, a form becomes visible in a form of a Bookmark Icon, allowing them to create a new Bookmark. The user can choose the event they wish to bookmark, establishing a connection between the bookmark and the selected event.
+
+If a user attempts to bookmark the same event twice, an error message is displayed, notifying them that they have already bookmarked the selected event. The duplicate bookmark is prevented from being created. Similarly, if a user tries to bookmark a event they created, an error message informs them that bookmarking their own event is not allowed, and the bookmark is not created.
+
+<img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701508164/ultimate-m-car/README/backend/bookmarks/bookmarks-error_umgmfc.png"
+        alt="Ultimate M Car API">
+
+[Table of Contents](#table-of-contents)
+
+### Profiles Data Model
+
+Profiles Data Modal takes the following fields
+
+- owner
+- created_at
+- updated_at
+- name
+- content
+- image
+
+In addition to the fields generated in the Profiles model through the serializer, I have included the following attributes in the JSON data:
+
+- is_owner
+- following_id
+- posts_count
+- events_count
+- followers_count
+- following_count
+
+Upon user login, when the user accesses the details of their own profile, additional Edit and Delete functionality becomes accessible. A pre-filled form is provided for editing the fields of the profile model, and a delete button is available to remove the profile from the API.
+
+[Table of Contents](#table-of-contents)
+
+### Followers Data Model
+
+Followers Data Modal takes the following fields
+
+- owner
+- followed
+- created_at
+In addition to the fields generated in the Followers model through the serializer, I have included the following attributes in the JSON data:
+
+- followed_name
+
+Upon user login, a form becomes visible for creating a new follower post. The user can select the profile they wish to follow, establishing a connection between the follower post and the chosen user profile.
+
+If a user attempts to follow the same profile twice, they receive an error message indicating that they are already following the selected profile. The system prevents the creation of a duplicate follow post.
+
+<img src="https://res.cloudinary.com/dcjkzptkn/image/upload/v1701509110/ultimate-m-car/README/backend/followers/followers-error_zxg30x.png"
+        alt="Ultimate M Car API">
+
+After logging in, if the user examines the details of a single follower post they created, additional functionality for deleting the post becomes available.
+
+[Table of Contents](#table-of-contents)
 
 ---
 
@@ -33,9 +498,30 @@
 - [Codeanywhere](https://codeanywhere.com/) was used to create this site and then push everything to github.
 - [Django](https://www.djangoproject.com/) was the framework that was used.
 - [Django Rest Framework](https://www.django-rest-framework.org/) building the backend Web API.
-- [Django Rest Auth](https://dj-rest-auth.readthedocs.io/en/latest/installation.html) for authentication functionality like login, logout, password restt and password change.
+- [Django Rest Framework SimpleJWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/) - Simple JWT provides a JSON Web Token authentication backend for the Django REST Framework.
+- [Django Filter](https://django-filter.readthedocs.io/en/stable/) - Django-filter is a generic, reusable application to alleviate writing some of the more mundane bits of view code.
 - [Python](https://en.wikipedia.org/wiki/Python_(programming_language)), django is a python framework.
 - [Cloudinary](https://cloudinary.com/) was used to store the images.
+- [dj-database-url](https://pypi.org/project/dj-database-url/0.5.0/) - This simple Django utility allows you to utilize the 12factor inspired DATABASE_URL environment variable to configure your Django application.
+- [dj-rest-auth](https://pypi.org/project/dj-rest-auth/) - Drop-in API endpoints for handling authentication securely in Django Rest Framework.
+- [django-allauth](https://docs.allauth.org/en/latest/) - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.
+- [gunicorn](https://pypi.org/project/gunicorn/) - unicorn ‘Green Unicorn’ is a Python WSGI HTTP Server for UNIX.
+- [Pillow](https://pypi.org/project/Pillow/8.2.0/) - The Python Imaging Library adds image processing capabilities to your Python interpreter.
+- [psycopg2](https://pypi.org/project/psycopg2/) - Psycopg is the most popular PostgreSQL database adapter for the Python programming language.
+- [PyJWT](https://pypi.org/project/PyJWT/) - A Python implementation of RFC 7519.
+- [python3-openid](https://pypi.org/project/python3-openid/) - OpenID support for modern servers and consumers.
+- [pytz](https://pypi.org/project/pytz/) - This is a set of Python packages to support use of the OpenID decentralized identity system in your application, update to Python 3
+- [sqlparse](https://pypi.org/project/sqlparse/) - sqlparse is a non-validating SQL parser for Python.
+- [whitenoise](https://whitenoise.readthedocs.io/en/latest/django.html) - Radically simplified static file serving for Python web apps
+
+
+[Table of Contents](#table-of-contents)
+
+---
+
+## Testing
+
+Testing of the Backend can be found [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/testing/TESTING_Back_End.md)
 
 ---
 
