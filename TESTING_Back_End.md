@@ -1,6 +1,6 @@
 # Testing
 
-This is the Read Me Testing for the Backend. Click [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/testing/README_Back_End.md) if you like to see the Read Me for the Backend
+This is the Read Me Testing for the Backend. Click [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/main/README_Back_End.md) if you like to see the Read Me for the Backend
 
 ## Table of Contents
 

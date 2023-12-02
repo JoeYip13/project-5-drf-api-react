@@ -1,6 +1,6 @@
 # Ultimate M Car
 
-This is the Read Me Testing for the Frontend. Click [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/testing/README.md) if you like to see the Read Me for the Frontend.
+This is the Read Me Testing for the Frontend. Click [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/main/README.md) if you like to see the Read Me for the Frontend.
 
 ## Frontend Testing
 

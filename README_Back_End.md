@@ -521,7 +521,7 @@ After logging in, if the user examines the details of a single follower post the
 
 ## Testing
 
-Testing of the Backend can be found [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/testing/TESTING_Back_End.md)
+Testing of the Backend can be found [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/main/TESTING_Back_End.md)
 
 ---
 

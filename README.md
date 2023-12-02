@@ -632,7 +632,7 @@ The search bar on the website functions as a versatile filtering tool for posts,
 
 ## Testing
 
-Testing can be found [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/testing/TESTING_Front_End.md)
+Testing can be found [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/main/TESTING_Front_End.md)
 
 [Table of Contents](#table-of-contents)
 
