@@ -1,4 +1,7 @@
 # Ultimate M Car
+
+This is the Read Me Testing for the Frontend. Click [here](https://github.com/JoeYip13/project-5-drf-api-react/blob/testing/README.md) if you like to see the Read Me for the Frontend.
+
 ## Frontend Testing
 
 ## Table of Contents
@@ -39,9 +42,11 @@
   - [More Manual Scenario Base Testing](#more-manual-scenario-base-testing)
 
 ---
+
 ## Validator testing
 
 ## W3C Validator
+
 The URL for Ultimate M Car underwent validation checks using both the W3C HTML Validator and the W3C CSS Validator. [W3C Html Validator](https://validator.w3.org/#validate_by_uri) and [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
 No errors were identified when the deployed URL underwent validation checks using the W3C HTML validation checker. However, 8 warning messages did arise, cautioning about trailing slashes in the index.html file. Promptly addressing these warnings, I resolved the issue to ensure adherence to HTML standards.
 <details>
@@ -60,6 +65,7 @@ No errors were identified when the deployed URL underwent validation checks usin
 </details>
 
 ## ESLint Validator
+
 [ES Lint](https://eslint.org/docs/latest/use/getting-started) was installed using the following terminal commands.<br>
 `npm install --save-dev eslint`<br>
 `npx eslint --init`<br>
