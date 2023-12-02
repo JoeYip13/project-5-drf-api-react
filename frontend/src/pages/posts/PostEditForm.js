@@ -20,7 +20,6 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 function PostEditForm() {
     const [errors, setErrors] = useState({});
 
-    const [isChecked, setIsChecked] = useState(false);
     const [postData, setPostData] = useState({
         title: "",
         content: "",
@@ -29,7 +28,7 @@ function PostEditForm() {
         year: "",
         bhp: "",
         location: "",
-        is_modified: isChecked,
+        is_modified: "",
         colour: "",
     });
 
@@ -91,8 +90,6 @@ function PostEditForm() {
         setPostData({
             ...postData,
             [event.target.name]: event.target.value,
-            [event.target.name === is_modified]: (event.target.value =
-                setIsChecked(!isChecked)),
         });
     };
 
@@ -108,6 +105,33 @@ function PostEditForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        // Client-side validation requiredFields array containing the names of fields that are required.
+        const requiredFields = [
+            "title",
+            "content",
+            "model",
+            "year",
+            "bhp",
+            "location",
+            "is_modified",
+            "colour",
+        ];
+        // I filtered out the fields that are missing from the postData.
+        const missingFields = requiredFields.filter(
+            (field) => !postData[field]
+        );
+        // If there are missing fields, I set an error message for each missing field in the setErrors function, and the function returns early to prevent the API call.
+        if (missingFields.length > 0) {
+            const errorMessages = missingFields.map(
+                (field) =>
+                    `${
+                        field.charAt(0).toUpperCase() + field.slice(1)
+                    } is required.`
+            );
+            // I added a general error message in case there are missing fields, and I updated the setErrors function to handle this general error message:
+            setErrors({ general: errorMessages });
+            return;
+        }
         const formData = new FormData();
 
         formData.append("title", title);
@@ -162,6 +186,11 @@ function PostEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.content?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Model</Form.Label>
                 <Form.Control
@@ -171,6 +200,11 @@ function PostEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.model?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Year</Form.Label>
                 <Form.Control
@@ -180,6 +214,11 @@ function PostEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.year?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>BHP</Form.Label>
                 <Form.Control
@@ -189,6 +228,11 @@ function PostEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.bhp?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Location</Form.Label>
                 <Form.Control
@@ -198,16 +242,28 @@ function PostEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.location?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Is Modified</Form.Label>
-                <Form.Check
-                    type="checkbox"
-                    label="Yes"
+                <Form.Control
+                    as="select"
                     name="is_modified"
-                    value={!isChecked}
+                    value={is_modified}
                     onChange={handleChange}
-                />
+                >
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </Form.Control>
             </Form.Group>
+            {errors?.is_modified?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Colour</Form.Label>
                 <Form.Control
@@ -217,7 +273,17 @@ function PostEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
-
+            {errors?.colour?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
+            {/* Now, you should see a general error message if the user tries to submit the form without filling in all the required fields. */}
+            {errors?.general?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Black}`}
                 onClick={() => history.goBack()}
@@ -265,6 +331,11 @@ function PostEditForm() {
                                 ref={imageInput}
                             />
                         </Form.Group>
+                        {errors?.image?.map((message, idx) => (
+                            <Alert variant="warning" key={idx}>
+                                {message}
+                            </Alert>
+                        ))}
                         <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>

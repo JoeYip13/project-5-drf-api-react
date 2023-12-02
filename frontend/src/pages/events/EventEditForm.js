@@ -23,6 +23,7 @@ function EventEditForm() {
         title: "",
         description: "",
         event_date: "",
+        event_time: "",
         location: "",
         image: "",
     });
@@ -33,6 +34,7 @@ function EventEditForm() {
         image,
         location,
         event_date,
+        event_time,
     } = eventData;
 
     const imageInput = useRef(null);
@@ -47,6 +49,7 @@ function EventEditForm() {
                     title,
                     description,
                     event_date,
+                    event_time,
                     location,
                     image,
                     is_owner,
@@ -57,10 +60,11 @@ function EventEditForm() {
                           title,
                           description,
                           event_date,
+                          event_time,
                           location,
                           image,
                       })
-                    : history.push("/");
+                    : history.push("events/");
             } catch (error) {
                 // console.log(error);
             }
@@ -88,6 +92,31 @@ function EventEditForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        // Client-side validation requiredFields array containing the names of fields that are required.
+        const requiredFields = [
+            "title",
+            "description",
+            "event_date",
+            "event_time",
+            "image",
+            "location",
+        ];
+        // I filtered out the fields that are missing from the postData.
+        const missingFields = requiredFields.filter(
+            (field) => !eventData[field]
+        );
+        // If there are missing fields, I set an error message for each missing field in the setErrors function, and the function returns early to prevent the API call.
+        if (missingFields.length > 0) {
+            const errorMessages = missingFields.map(
+                (field) =>
+                    `${
+                        field.charAt(0).toUpperCase() + field.slice(1)
+                    } is required.`
+            );
+            // I added a general error message in case there are missing fields, and I updated the setErrors function to handle this general error message:
+            setErrors({ general: errorMessages });
+            return;
+        }
         const formData = new FormData();
 
         formData.append("title", title);
@@ -98,6 +127,7 @@ function EventEditForm() {
         }
 
         formData.append("event_date", event_date);
+        formData.append("event_time", event_time);
         formData.append("location", location);
         // console.log(Object.fromEntries(formData.entries()));
 
@@ -138,6 +168,11 @@ function EventEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.description?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Event Date</Form.Label>
                 <Form.Control
@@ -147,6 +182,25 @@ function EventEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.event_date?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
+            <Form.Group>
+                <Form.Label>Time</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="event_time"
+                    value={event_time}
+                    onChange={handleChange}
+                />
+            </Form.Group>
+            {errors?.event_time?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Location</Form.Label>
                 <Form.Control
@@ -156,7 +210,17 @@ function EventEditForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
-
+            {errors?.location?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
+            {/* Now, you should see a general error message if the user tries to submit the form without filling in all the required fields. */}
+            {errors?.general?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Black}`}
                 onClick={() => history.goBack()}

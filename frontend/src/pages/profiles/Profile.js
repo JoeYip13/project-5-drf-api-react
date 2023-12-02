@@ -26,7 +26,7 @@ const Profile = (props) => {
                 <Link
                     className="align-self-center"
                     to={`/profiles/${id}`}
-                    aria-label={`Link to ${currentUser?.username}'s profile`}
+                    aria-label={`Link to ${owner}'s profile`}
                 >
                     <Avatar src={image} height={imageSize} />
                 </Link>

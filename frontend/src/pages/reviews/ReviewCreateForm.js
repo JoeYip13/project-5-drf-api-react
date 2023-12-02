@@ -16,6 +16,19 @@ function ReviewCreateForm(props) {
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
     const [errors, setErrors] = useState({});
+    const [showAlert, setShowAlert] = useState(false);
+
+    const hideAlertAfterTimeout = () => {
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 5000); // Adjust the timeout duration (in milliseconds) as needed
+    };
+
+    const hideDetailAlertAfterTimeout = () => {
+        setTimeout(() => {
+            setErrors({ ...errors, detail: null }); // Reset detail error after timeout
+        }, 5000); // Adjust the timeout duration (in milliseconds) as needed
+    };
 
     const handleReviewChange = (e) => {
         setReview(e.target.value);
@@ -47,9 +60,15 @@ function ReviewCreateForm(props) {
             }));
             setReview("");
             setRating("");
+            // Set showAlert to true to display the alert
+            setShowAlert(true);
+            hideAlertAfterTimeout();
         } catch (err) {
             if (err.response?.status !== 401) {
                 setErrors({ detail: err.response?.data.detail });
+                // Set showAlert to true to display the alert
+                setShowAlert(true);
+                hideAlertAfterTimeout();
                 // console.log(err.response);
             }
             // console.log(err);
@@ -88,11 +107,13 @@ function ReviewCreateForm(props) {
                                 <option value="0 stars">0 stars</option>
                             </Form.Control>
                         </Form.Group>
-                        {errors.rating?.map((message, idx) => (
-                            <Alert key={idx} variant="warning">
-                                {message}
-                            </Alert>
-                        ))}
+                        {/* Display the alert with showAlert state */}
+                        {showAlert &&
+                            errors.rating?.map((message, idx) => (
+                                <Alert key={idx} variant="warning">
+                                    {message}
+                                </Alert>
+                            ))}
                     </Col>
                 </Row>
                 <Row>
@@ -109,11 +130,13 @@ function ReviewCreateForm(props) {
                                 rows={1}
                             />
                         </Form.Group>
-                        {errors.review?.map((message, idx) => (
-                            <Alert key={idx} variant="warning">
-                                {message}
-                            </Alert>
-                        ))}
+                        {/* Display the alert with showAlert state */}
+                        {showAlert &&
+                            errors.review?.map((message, idx) => (
+                                <Alert key={idx} variant="warning">
+                                    {message}
+                                </Alert>
+                            ))}
                     </Col>
                 </Row>
             </Container>
@@ -129,6 +152,8 @@ function ReviewCreateForm(props) {
                     {errors.detail}
                 </Alert>
             )}
+            {/* Set a timeout for the detail alert */}
+            {errors.detail && hideDetailAlertAfterTimeout()}
         </Form>
     );
 }

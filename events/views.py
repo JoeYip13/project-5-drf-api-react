@@ -25,6 +25,8 @@ class EventList(generics.ListCreateAPIView):
     filterset_fields = [
         # User feed
         'owner__followed__owner__profile',
+        #  User Bookmarked events
+        'bookmarks__owner__profile',
         # user posts
         'owner__profile',
         # Event date

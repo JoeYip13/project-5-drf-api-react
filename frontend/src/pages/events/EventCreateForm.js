@@ -63,6 +63,31 @@ function EventCreateForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        // Client-side validation requiredFields array containing the names of fields that are required.
+        const requiredFields = [
+            "title",
+            "description",
+            "event_date",
+            "event_time",
+            "image",
+            "location",
+        ];
+        // I filtered out the fields that are missing from the postData.
+        const missingFields = requiredFields.filter(
+            (field) => !eventData[field]
+        );
+        // If there are missing fields, I set an error message for each missing field in the setErrors function, and the function returns early to prevent the API call.
+        if (missingFields.length > 0) {
+            const errorMessages = missingFields.map(
+                (field) =>
+                    `${
+                        field.charAt(0).toUpperCase() + field.slice(1)
+                    } is required.`
+            );
+            // I added a general error message in case there are missing fields, and I updated the setErrors function to handle this general error message:
+            setErrors({ general: errorMessages });
+            return;
+        }
         const formData = new FormData();
 
         formData.append("title", title);
@@ -71,7 +96,7 @@ function EventCreateForm() {
         formData.append("event_date", event_date);
         formData.append("event_time", event_time);
         formData.append("location", location);
-        console.log(Object.fromEntries(formData.entries()));
+        // console.log(Object.fromEntries(formData.entries()));
 
         try {
             const { data } = await axiosReq.post("/events/", formData);
@@ -124,7 +149,7 @@ function EventCreateForm() {
                     name="event_date"
                     value={event_date}
                     onChange={handleChange}
-                    placeholder="eg. 2023/10/22"
+                    placeholder="eg. 2023-10-22"
                 />
             </Form.Group>
             {errors?.event_date?.map((message, idx) => (
@@ -160,7 +185,12 @@ function EventCreateForm() {
                     {message}
                 </Alert>
             ))}
-
+            {/* Now, you should see a general error message if the user tries to submit the form without filling in all the required fields. */}
+            {errors?.general?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Black}`}
                 onClick={() => history.goBack()}

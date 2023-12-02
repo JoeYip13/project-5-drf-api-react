@@ -37,6 +37,14 @@ const UsernameForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        // Check if the username length is more than 20 characters
+        if (username.length > 20) {
+            setErrors({
+                username: ["Username must be at most 20 characters long."],
+            });
+            return; // Exit the function early to prevent API call
+        }
+        
         try {
             await axiosRes.put("/dj-rest-auth/user/", {
                 username,

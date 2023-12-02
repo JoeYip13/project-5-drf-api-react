@@ -16,6 +16,8 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
     />
 ));
 
+ThreeDots.displayName = "ThreeDots"; // Add displayName to the ThreeDots component
+
 export function ProfileEditDropdown({ id }) {
     const history = useHistory();
     return (

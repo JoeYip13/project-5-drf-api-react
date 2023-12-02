@@ -72,18 +72,19 @@ function EventsPage({ message, filter = "" }) {
                     <>
                         {events.results.length ? (
                             <InfiniteScroll
-                                children={events.results.map((event) => (
+                                dataLength={events.results.length}
+                                loader={<Asset spinner />}
+                                hasMore={!!events.next}
+                                next={() => fetchMoreData(events, setEvents)}
+                            >
+                                {events.results.map((event) => (
                                     <Event
                                         key={event.id}
                                         {...event}
                                         setEvents={setEvents}
                                     />
                                 ))}
-                                dataLength={events.results.length}
-                                loader={<Asset spinner />}
-                                hasMore={!!events.next}
-                                next={() => fetchMoreData(events, setEvents)}
-                            />
+                            </InfiniteScroll>
                         ) : (
                             <Container className={appStyles.Content}>
                                 <Asset src={NoResults} message={message} />

@@ -57,7 +57,10 @@ const Comment = (props) => {
         <>
             <hr />
             <Media>
-                <Link to={`/profiles/${profile_id}`}>
+                <Link
+                    to={`/profiles/${profile_id}`}
+                    aria-label={`Link to ${owner}'s profile`}
+                >
                     <Avatar src={profile_image} />
                 </Link>
                 <Media.Body className="align-self-center ml-2">
@@ -95,7 +98,7 @@ const Comment = (props) => {
                         className={`${btnStyles.Button} ${btnStyles.Black}`}
                         onClick={handleClose}
                     >
-                        Close
+                        Cancel
                     </Button>
                     <Button
                         className={`${btnStyles.Button} ${btnStyles.Black}`}

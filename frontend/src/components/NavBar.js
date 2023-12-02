@@ -31,10 +31,12 @@ import axios from "axios";
 
 import { removeTokenTimestamp } from "../utils/utils";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
+    const history = useHistory(); // Add this line to get access to the history object
 
     const [toggleNavBar, setToggleNavBar] = useState(false);
 
@@ -57,8 +59,14 @@ const NavBar = () => {
             setTimeout(() => {
                 handleClose(); // Close the modal
                 setLoading(false); // Rest loading state
+                history.push("/");
             }, 2000);
         }
+    };
+
+    const handleSignOutClick = (event) => {
+        event.preventDefault(); // Prevent the default behavior of the link
+        handleShow(); // Open the sign-out confirmation modal
     };
 
     const location = useLocation();
@@ -74,7 +82,8 @@ const NavBar = () => {
             to="/events/create"
             aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
+            <i className="fa-solid fa-circle-plus" aria-hidden="true"></i>Add
+            Event
         </NavLink>
     ) : isOnEventCreatePage ? (
         <NavLink
@@ -83,7 +92,8 @@ const NavBar = () => {
             to="/events/create"
             aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
+            <i className="fa-solid fa-circle-plus" aria-hidden="true"></i>Add
+            Event
         </NavLink>
     ) : isOnEventDetailPage ? (
         <NavLink
@@ -92,7 +102,8 @@ const NavBar = () => {
             to="/events/create"
             aria-label="Add event"
         >
-            <i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Add Event
+            <i className="fa-solid fa-circle-plus" aria-hidden="true"></i>Add
+            Event
         </NavLink>
     ) : (
         <NavLink
@@ -101,33 +112,34 @@ const NavBar = () => {
             to="/posts/create"
             aria-label="Add post"
         >
-            <i class="fa-solid fa-circle-plus"></i>Add Post
+            <i className="fa-solid fa-circle-plus"></i>Add Post
         </NavLink>
     );
     const loggedInIcons = (
         <>
             <NavLink
                 className={styles.NavLink}
-                to="/"
-                onClick={handleShow}
+                to="#"
+                onClick={handleSignOutClick} // Use handleSignOutClick instead of handleShow
                 aria-label="Sign out"
             >
-                <i class="fa-solid fa-right-from-bracket"></i>Sign out
+                <i className="fa-solid fa-right-from-bracket"></i>Sign out
             </NavLink>
-                <NavLink
-                    className={styles.NavLink}
-                    to={`/profiles/${currentUser?.profile_id}`}
-                    aria-label={`Link to ${currentUser?.username}'s profile`}
-                >
-                    <Avatar
-                        src={currentUser?.profile_image}
-                        text={currentUser?.username}
-                        height={50}
-                        aria-hidden="true"
-                    />
-                </NavLink>
+            <NavLink
+                className={styles.NavLink}
+                to={`/profiles/${currentUser?.profile_id}`}
+                aria-label={`Link to ${currentUser?.username}'s profile`}
+            >
+                <Avatar
+                    src={currentUser?.profile_image}
+                    text={currentUser?.username}
+                    height={50}
+                    aria-hidden="true"
+                />
+            </NavLink>
             <NavDropdown
-                id="basic-nav-dropdown"
+                id="collasible-nav-dropdown"
+                menuAlign={{ lg: "right" }}
                 title={
                     <span className={styles.visuallyHidden}>
                         Dropdown Arrow
@@ -176,7 +188,7 @@ const NavBar = () => {
                 to="/signup"
                 aria-label="Link to sign up"
             >
-                <i class="fa-solid fa-user-plus"></i>Sign Up
+                <i className="fa-solid fa-user-plus"></i>Sign Up
             </NavLink>
             <NavLink
                 className={styles.NavLink}
@@ -185,7 +197,7 @@ const NavBar = () => {
                 to="/signin"
                 aria-label="Link to sign in"
             >
-                <i class="fa-solid fa-right-to-bracket"></i>Sign In
+                <i className="fa-solid fa-right-to-bracket"></i>Sign In
             </NavLink>
         </>
     );
@@ -216,9 +228,9 @@ const NavBar = () => {
                     {currentUser && addIcon}
                     <Navbar.Toggle
                         onClick={() => setToggleNavBar(!toggleNavBar)}
-                        aria-controls="basic-navbar-nav"
+                        aria-controls="responsive-navbar-nav"
                     />
-                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
                             <NavLink
                                 className={styles.NavLink}
@@ -227,7 +239,8 @@ const NavBar = () => {
                                 to="/"
                                 aria-label="Link to feed page"
                             >
-                                <i class="fa-solid fa-bars-staggered"></i>Feed
+                                <i className="fa-solid fa-bars-staggered"></i>
+                                Feed
                             </NavLink>
                             <NavLink
                                 className={styles.NavLink}
