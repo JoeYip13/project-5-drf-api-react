@@ -41,6 +41,7 @@ urlpatterns = [
 
 handler404 = TemplateView.as_view(template_name='index.html')
 
+# UnComment out this urlatterns for viewing the API backend.
 # urlpatterns = [
 #     path('', root_route),
 #     path('admin/', admin.site.urls),
@@ -55,6 +56,7 @@ handler404 = TemplateView.as_view(template_name='index.html')
 #     path('', include('posts.urls')),
 #     path('', include('events.urls')),
 #     path('', include('comments.urls')),
+#     path('', include('reviews.urls')),
 #     path('', include('likes.urls')),
 #     path('', include('followers.urls')),
 #     path('', include('bookmarks.urls')),
